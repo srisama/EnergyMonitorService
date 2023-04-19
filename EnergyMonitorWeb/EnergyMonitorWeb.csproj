@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\skins\skin-master.css.map" />
+    <None Include="wwwroot\css\themes\cust-theme-3.css.map" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EnergyMonitorServices\EnergyMonitorServices.csproj" />
+  </ItemGroup>
+
+</Project>

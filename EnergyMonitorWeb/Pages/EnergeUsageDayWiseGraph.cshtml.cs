@@ -1,0 +1,16 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+
+namespace EnergyMonitorWeb.Pages
+{
+    public class EnergeUsageDayWiseGraphModel : PageModel
+    {
+        public void OnGet()
+        {
+        }
+    }
+}

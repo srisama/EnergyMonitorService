@@ -1,0 +1,32 @@
+﻿@page
+@model EnergyMonitorWeb.Pages.DashboardModel
+@{
+}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">*@
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/angular.js"></script>
+    <script src="~/js/angular-filter.js"></script>
+</head>
+
+<body ng-app="DashboardModule" class="mod-bg-1 mod-nav-link mod-nav-link">
+
+    <div ng-controller="DashboardController" class="row">
+        <div class="col-lg-12 col-xl-6">
+
+        </div>
+    </div>
+    <div id="dumxls" class="hide">
+        <a id="dumlnkxls"></a>
+        <iframe id="dumiframexls"></iframe>
+    </div>
+    <script src="~/js/Angular/Dashboard.js"></script>
+    <script src="~/js/dirPagination.js"></script>
+</body>
+
+</html>

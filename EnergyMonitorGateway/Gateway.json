@@ -1,0 +1,319 @@
+{
+  "Routes": [
+    //*************************Protocols**************************
+    //{
+    //  "DownstreamPathTemplate": "/api/Protocols/GetProtocols",
+    //  "DownstreamScheme": "http",
+    //  "DownstreamHostAndPorts": [
+    //    {
+    //      "Host": "localhost",
+    //      "Port": "5000"
+    //    }
+    //  ],
+    //  "UpstreamPathTemplate": "/Protocols",
+    //  "UpstreamHttpMethod": [ "Get" ]
+    //}
+
+    {
+      "DownstreamPathTemplate": "/api/Users/ValidateUser",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2000"
+        }
+      ],
+      "UpstreamPathTemplate": "/ValidateUser/",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    ////////////////////////////////////////////////devicess //////////////////////////////////////////////
+    {
+      "DownstreamPathTemplate": "/api/Devices/GetDevicebyId/",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2000"
+        }
+      ],
+      "UpstreamPathTemplate": "/GetDevicebyId/",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Devices/GetDevices",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2000"
+        }
+      ],
+      "UpstreamPathTemplate": "/Devices",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/Devices/AddDevice",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2000"
+        }
+      ],
+      "UpstreamPathTemplate": "/AddDevice/",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Devices/UpdateDevice",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2000"
+        }
+      ],
+      "UpstreamPathTemplate": "/UpdateDevice/",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/Devices/DeleteDevice",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2000"
+        }
+      ],
+      "UpstreamPathTemplate": "/DeleteDevice/",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    ////////////////////////////////////////////////Device Usage //////////////////////////////////////////////
+    {
+      "DownstreamPathTemplate": "/api/EnergyConsumption/GetEnergyConsumption",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2000"
+        }
+      ],
+      "UpstreamPathTemplate": "/EnergyConsumption",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/EnergyConsumption/GetEnergyConsumptionbyDate",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2000"
+        }
+      ],
+      "UpstreamPathTemplate": "/EnergyConsumptionbyDate",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/EnergyConsumption/GetEnergyConsumptionbyId",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2000"
+        }
+      ],
+      "UpstreamPathTemplate": "/EnergyConsumptionbyId",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/EnergyConsumption/AddEnergyConsumption",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2000"
+        }
+      ],
+      "UpstreamPathTemplate": "/AddEnergyConsumption/",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/EnergyConsumption/UpdateEnergyConsumption",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2000"
+        }
+      ],
+      "UpstreamPathTemplate": "/UpdateEnergyConsumption/",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/EnergyConsumption/DeleteEnergyConsumption",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2000"
+        }
+      ],
+      "UpstreamPathTemplate": "/DeleteEnergyConsumption/",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    ////////////////////////////////////////////////User Preference/Device Preference //////////////////////////////////////////////
+    {
+      "DownstreamPathTemplate": "/api/UserPreference/GetUserPreferences",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2000"
+        }
+      ],
+      "UpstreamPathTemplate": "/UserPreferences",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/UserPreference/GetUserPreferencebyId",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2000"
+        }
+      ],
+      "UpstreamPathTemplate": "/UserPreferencebyId",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/UserPreference/AddUserPreference",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2000"
+        }
+      ],
+      "UpstreamPathTemplate": "/AddUserPreference/",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/UserPreference/UpdateUserPreference",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2000"
+        }
+      ],
+      "UpstreamPathTemplate": "/UpdateUserPreference/",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/UserPreference/DeleteUserPreference",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2000"
+        }
+      ],
+      "UpstreamPathTemplate": "/DeleteUserPreference/",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    ////////////////////////////////////////////////Energy Usage Summary //////////////////////////////////////////////
+    //{
+    //  "DownstreamPathTemplate": "/api/EnergyUsageSummary/GetEnergyUsageSummary",
+    //  "DownstreamScheme": "http",
+    //  "DownstreamHostAndPorts": [
+    //    {
+    //      "Host": "localhost",
+    //      "Port": "2000"
+    //    }
+    //  ],
+    //  "UpstreamPathTemplate": "/GetEnergyUsageSummary",
+    //  "UpstreamHttpMethod": [ "POST" ]
+    //},
+
+    {
+      "DownstreamPathTemplate": "/api/EnergyUsageSummary/GetEnergyUsageSummary",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2000"
+        }
+      ],
+      "UpstreamPathTemplate": "/EnergyUsageSummary",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+
+
+    {
+      "DownstreamPathTemplate": "/api/EnergyUsageSummary/GetEnergyUsageSummarybyId",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2000"
+        }
+      ],
+      "UpstreamPathTemplate": "/GetEnergyUsageSummarybyId",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/EnergyUsageSummary/AddEnergyUsageSummary",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2000"
+        }
+      ],
+      "UpstreamPathTemplate": "/AddEnergyUsageSummary/",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/EnergyUsageSummary/UpdateEnergyUsageSummary",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2000"
+        }
+      ],
+      "UpstreamPathTemplate": "/UpdateEnergyUsageSummary/",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/EnergyUsageSummary/DeleteEnergyUsageSummary",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2000"
+        }
+      ],
+      "UpstreamPathTemplate": "/DeleteEnergyUsageSummary/",
+      "UpstreamHttpMethod": [ "POST" ]
+    }
+
+
+  ]
+
+}

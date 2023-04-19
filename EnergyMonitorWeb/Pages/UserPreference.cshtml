@@ -1,0 +1,212 @@
+﻿@page
+@model EnergyMonitorWeb.Pages.UserPreferenceModel
+@{
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">*@
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/angular.js"></script>
+    <script src="~/js/angular-filter.js"></script>
+    <link href="~/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <script src="~/js/bootstrap-datepicker.js"></script>
+    <link href="~/css/font-awesome.min.css" rel="stylesheet" />
+
+
+</head>
+
+<body ng-app="UserPreferenceModule" class="mod-bg-1 mod-nav-link mod-nav-link">
+
+    <div ng-controller="UserPreferenceController" class="row">
+        <div class="col-lg-12 col-xl-6">
+
+            <div id="panel-7" class="panel">
+                <div class="card-header" style="background-color: #4679cc; color:#fff">
+                    <i class="fal fa-th-list"></i>
+                    User Preferences
+                    <a class="btn addnew" id="addcontrols" ng-click="$event.preventDefault();addControls()" style="float: right; border-color: #0040a7; color: #fff " href="">Add User Preference</a>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+
+                        <div class="container">
+
+                            @*<div class="card-body crdbpad">*@
+
+                            <div class="form-group row sucessdiv hide">
+                                <label for="GroupName" class="col-md-2"></label>
+                                <div class="form-label-group col-md-5">
+                                    <div id="sucessdiv" class="alert alert-success "></div>
+                                </div>
+                            </div>
+                            <div class="form-group row errordiv hide">
+                                <label for="GroupName" class="col-md-2"></label>
+                                <div class="form-label-group col-md-5">
+                                    <div id="errordiv" class="alert alert-danger "></div>
+                                </div>
+                            </div>
+
+                            <form class="myForm" name="Form" enctype="multipart/form-data">
+                                <div id="nspagecontrols" class="row hide" style="margin-bottom: 10px;">
+
+                                    <div class="col-lg-6">
+
+                                        <div class="form-group row ">
+                                            <label for="Device" class="col-md-4">Device</label>
+                                            <div class="form-label-group col-md-8">
+                                                @*<input type="text" id="continent" class="form-control isval idate inutht" value="" ng-model="Parameters.ParameterName" name="Country" ng-change="finalvalidation()" maxlength="20" />*@
+                                                <input placeholder="Select Device" id="Device_Id" class="custom-select form-control dropdo wngraph ddlse achsite" ng-click="devicediv()" ng-model="srchDevice" ng-change="getfilterdevices()" />
+                                                <span id="meteridnospcl" class="row hide formspan">Error : No Special Characters</span>
+                                            </div>
+                                            <div id="devicediv" class="srchdropdown2 hide " ng-class="{'hide':filterdevice=='0'}" ng-if="filterdevice='1'&& device_id=='0'">
+                                                <ul class="srchdro pdown no-bullets">
+                                                    <li class="srchdro pdown" ng-repeat="device in allDevicesdropdownData|filter:{device_name:srchDevice}" ng-click="getselecteddevice(device.device_id,device.device_name)">{{device.device_name}}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group row ">
+                                            <label for="EnergyUsageGoal" class="col-md-4">Energy Usage Goal</label>
+                                            <div class="form-label-group col-md-8">
+                                                <input type="text" id="energyusagegoal" class="form-control isval idate inutht" value="" ng-model="UserPreference.EnergyUsageGoal" name="powerconsumption" @*ng-change="finalvalidation()"*@ maxlength="50" />
+                                                <span id="energyusagegoalnospcl" class="row hide formspan">Error : No Special Characters</span>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row ">
+                                            <label for="EnergyAlertThreshold" class="col-md-4">Energy Alert Threshold</label>
+                                            <div class="form-label-group col-md-8">
+                                                <input type="text" id="energyalertthreshold" class="form-control isval idate inutht" value="" ng-model="UserPreference.EnergyAlertThreshold" name="devicetype" @*ng-change="finalvalidation()"*@ maxlength="50" />
+                                                <span id="energyalertthresholdnospcl" class="row hide formspan">Error : No Special Characters</span>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group row ">
+                                            <label for="ReportFrequency" class="col-md-4">Report Frequency</label>
+                                            <div class="form-label-group col-md-8">
+                                                <input type="text" id="reportfrequency" class="form-control isval idate inutht" value="" ng-model="UserPreference.ReportFrequency" name="devicetype" @*ng-change="finalvalidation()"*@ maxlength="50" />
+                                                <span id="reportfrequencynospcl" class="row hide formspan">Error : No Special Characters</span>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="GroupOrder" class="col-md-4"></label>
+                                            <div class="form-label-group col-md-8">
+                                                <input type="button" value="Add" ng-click="insertuserpreference()" class="btnsbmt hide" id="savebtn" @*ng-disabled="savebtndis"*@ />
+                                                <input type="button" value="Update" ng-click="updateuserpreference()" class="btnsbmt hide" id="updatebtn" @*ng-disabled="updatebtndis"*@ />
+                                                <input type="button" value="Cancel" ng-click="canceluserpreference()" class="btnsbmt hide" style="margin-top: 5px;" id="cancelbtn" @*ng-disabled="cancelbtndis"*@ />
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                            </form>
+                            @*</div>*@
+
+
+
+
+                        </div>
+
+
+                        <div class="frame-wrap">
+                            <div class="col-lg-12 searchcss row">
+                                <div class="form-group row" style="padding-left: 15px;"><input class="srchinput" type="text" ng-model="search" placeholder="Search by Preferences" /></div>
+                                <div class="form-group row" style="padding-left: 50px;">
+                                    <label for="search" style="font-weight: 200;">Page Size:</label>
+                                    <input style="width:90px !important;" type="number" value="1" min="1" max="10000" class="form-control" ng-model="pageSize">
+                                </div>
+                                @*<div class="col-lg-1 nopad expmrg" style="padding-left:50px;">
+                                        <button class="btn btn-primary buttonhw  hide">Export</button>
+                                        <div class="dropdown">
+                                            <button class="btn btn-primary dropdown-toggle showsummery buttonhw1" id="btnSearch1" type="button" data-toggle="dropdown">
+                                                Export
+                                            </button>
+                                            <ul class="dropdown-menu exportdrop" style="min-width:80px!important">
+                                                <li><a href="" id="pdf" ng-click="DownloadPdf()"><i class="fa fa-file-pdf-o" style=""> </i>Pdf </a></li>
+                                                <li><a href="" id="excel" ng-click="Downloadexcel()"><i class="fa fa-file-excel-o" style=""> </i>Excel</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>*@
+                            </div>
+                            <table id="Displaydata" class="table table-sm m-0 table-striped">
+                                <thead class="bg-primary-500">
+                                    <tr>
+
+                                        <th ng-click="sort('device_name')">
+                                            Device Name
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='device_name'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                        </th>
+                                        <th ng-click="sort('energy_usage_goal')">
+                                            Energy Usage Goal
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='energy_usage_goal'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                        </th>
+                                        <th ng-click="sort('energy_alert_threshold')">
+                                            Energy Alert Threshold
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='energy_alert_threshold'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                        </th>
+                                        <th ng-click="sort('report_frequency')">
+                                            Report Frequency
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='report_frequency'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                        </th>
+                                        <th>Action</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="s in alluserpreferencedata | filter : search|itemsPerPage: pageSize|orderBy:sortKey:reverse" current-page="currentPage">
+
+
+                                    @*<tr ng-repeat="s in alluserpreferencedata">*@
+
+                                        <td>{{s.device_name}}</td>
+
+                                        <td>{{s.energy_usage_goal}}</td>
+
+                                        <td>{{s.energy_alert_threshold}}</td>
+
+                                        <td>{{s.report_frequency}}</td>
+
+
+                                        <td>
+                                            <button class="editbtn" ng-click="edituserpreference(s.preference_id,$index)">Edit</button>
+                                            <button class="editbtn" ng-click="deleteuserpreference(s.preference_id,$index)">Delete</button>
+                                        </td>
+
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                            @*<div class="col-md-12"><dir-pagination-controls max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls></div>*@
+                        </div>
+                        <div ng-controller="OtherController" class="other-controller">
+                            <div class="text-center">
+                                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"></dir-pagination-controls>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div id="dumxls" class="hide">
+        <a id="dumlnkxls"></a>
+        <iframe id="dumiframexls"></iframe>
+    </div>
+    <script src="~/js/Angular/UserPreferences.js"></script>
+    <script src="~/js/dirPagination.js"></script>
+</body>
+
+</html>

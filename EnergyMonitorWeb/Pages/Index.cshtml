@@ -1,0 +1,42 @@
+﻿
+@page
+@model EnergyMonitorWeb.Pages.IndexModel
+@{
+}
+@{ Layout = null; }
+<html>
+<head>
+    <link href="~/css/LoginTest.css" rel="stylesheet" />
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/angular.js"></script>
+    <script src="~/js/Angular/UserLogin.js"></script>
+    <link href="~/css/font-awesome.min.css" rel="stylesheet" />
+
+
+</head>
+<body ng-app="UserLogin" ng-controller="UserLoginController">
+    <div class="login">
+        <h1>Energy Moniter</h1>
+        <form>
+            <input type="text" id="username" name="u" placeholder="Username" required="required" />
+            <input type="password" id="password" name="p" placeholder="Password" required="required" />
+            <button type="submit" class="btn btn-primary btn-block btn-large" ng-click="Loginbtn()">Let me in.</button>
+            <span id="loginfail" class="row hide formspan">Error : Username/Password doesnt Exist</span>
+
+        </form>
+        <div class="login-help">
+            <p><a href="#" style="color: #FFFF !important;">Forgot Password</a>.</p>
+            @*<button type="submit" class="btn btn-primary btn-block btn-large" ng-click="Loginbtn()">Let me in.</button>*@
+
+        </div>
+    </div>
+    <div class="position-absolute pos-bottom pos-left pos-right text-center text-white">
+        Copyright ©2023. All Rights Reserved
+    </div>
+</body>
+</html>
+
+
+
+
