@@ -33,13 +33,30 @@
 
         <div class="col-lg-12 col-xl-6">
             
-            <!--<div class="row">
+            <div class="row">
+
+                <div class="form-group row">
+                    <label for="MeasurentHour" class="col-md-4">Store</label>
+                    <div class="form-label-group col-md-8">
+                        <select placeholder="Select" class="activeslct" id="ddlstorecode" @*ng-change="finalvalidation()"*@ ng-model="EnergyConsumption.stores">
+                            <option value="00">MMR-0004</option>
+                            <option value="01">SOU-0282</option>
+                            <option value="02">SOU-0138</option>
+                            <option value="03">MMR-0007</option>
+                            <option value="04">MMR-0275</option>
+                            <option value="05">MMR-0252</option>
+                            <option value="06">WR2-0288</option>
+                            <option value="07">ROW-0288</option>
+                        </select>
+                    </div>
+                </div>
+
+
 
                 <div class="form-group row ">
                     <label for="Device" class="col-md-4">Device</label>
-                    <div class="form-label-group col-md-8">-->
-                        @*<input type="text" id="continent" class="form-control isval idate inutht" value="" ng-model="Parameters.ParameterName" name="Country" ng-change="finalvalidation()" maxlength="20" />*@
-                        <!--<input placeholder="Select Device" id="Device_Id" class="custom-select form-control dropdo wngraph ddlse achsite" ng-click="devicediv()" ng-model="srchDevice" ng-change="getfilterdevices()" />
+                    <div class="form-label-group col-md-8">
+                        <input placeholder="Select Device" id="Device_Id" class="custom-select form-control dropdo wngraph ddlse achsite" ng-click="devicediv()" ng-model="srchDevice" ng-change="getfilterdevices()" />
                         <span id="meteridnospcl" class="row hide formspan">Error : No Special Characters</span>
                     </div>
                     <div id="devicediv" class="srchdropdown2 hide " ng-class="{'hide':filterdevice=='0'}" ng-if="filterdevice='1'&& device_id=='0'">
@@ -48,13 +65,15 @@
                         </ul>
                     </div>
                 </div>
+            </div>
 
+            <div class="row">
                 <div class="form-group row ">
                     <label for="MeasurentTime" class="col-md-4">Measurent Date</label>
                     <div class="form-label-group col-md-8">
-                        <input type="text" id="measurementdate" class="form-control isval idate inutht" value="" ng-model="EnergyConsumption.Measurement_Date" name="devicetype"--> @*ng-change="finalvalidation()"*@ <!--maxlength="50" />-->
-                        @*<i class="fas fa-calendar-alt"></i>*@
-                        <!--<i class="date-icon fa fa-calendar" aria-hidden="true"></i>
+                        <input type="text" id="measurementdate" class="form-control isval idate inutht" value="" ng-model="EnergyConsumption.Measurement_Date" name="devicetype" ng-change="finalvalidation()" maxlength="50" />
+                        <i class="fas fa-calendar-alt"></i>
+                        <i class="date-icon fa fa-calendar" aria-hidden="true"></i>
                         <span id="measurementdateenospcl" class="row hide formspan">Error : No Special Characters</span>
 
                     </div>
@@ -63,10 +82,15 @@
 
                 <div class="form-group row">
                     <div class="form-label-group col-md-12">
-                        <input type="button" value="Show Graph" ng-click="GetEnergyUsage()" class="btnsbmt" id="savebtn"--> @*ng-disabled="savebtndis"*@ <!--/>
+                        <input type="button" value="Show Graph" ng-click="GetEnergyUsage()" class="btnsbmt" id="savebtn" @*ng-disabled="savebtndis"*@ />
                     </div>
                 </div>
-            </div>-->
+            </div>
+
+
+
+
+
 
             <div id="panel-7" class="panel">
                 <div class="card-header" style="background-color: #4679cc; color:#fff">
@@ -126,7 +150,7 @@
 </body>
 
 </html><script>
-    $('#measurementtime').datepicker({
+    $('#measurementdate').datepicker({
         autoclose: true,
         format: "yyyy-mm-dd"
         //onselect: function (selected, evnt) {

@@ -48,6 +48,7 @@ namespace EnergyMonitorServices.Controllers
             return new HttpApiResponse(HttpStatusCode.OK, result);
         }
 
+
         /// <summary>
         /// This is api function to get all the record from the table energyConsumption
         /// </summary>

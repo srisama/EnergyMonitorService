@@ -22,8 +22,8 @@ app.controller('EnergyUsageHourlyGraphController', function EnergyUsageHourlyGra
 
     $scope.details = { CustomerID: "ProtechTst" };
    
-    //loadAllDevices();
-    loadAllEnergyConsumption();
+    getDevicesdropdown();
+    //loadAllEnergyConsumption();
     $scope.currentPage = 1;
     $scope.pageSize = 50;
     $scope.savebtndis = true;
@@ -104,8 +104,8 @@ app.controller('EnergyUsageHourlyGraphController', function EnergyUsageHourlyGra
         );
     }
 
-    function loadAllEnergyConsumption() {
-        $scope.details = { Device_Id: 8, Measurement_Date:'2023-04-16' };
+    function loadAllEnergyConsumption(data) {
+       // $scope.details = { Device_Id: 8, Measurement_Date:'2023-04-16' };
         var promise = EnergyUsageHourlyGraphService.getConsumptionsbyDate($scope.details);
         promise.then(
 
@@ -125,8 +125,9 @@ app.controller('EnergyUsageHourlyGraphController', function EnergyUsageHourlyGra
     }
 
     $rootScope.GetEnergyUsage = function () {
+        var storecode = $('#ddlstorecode :selected').text();
         var date = $('#measurementdate').val();
-        $scope.details = { Device_Id: $scope.device_id, Measurement_Date:date };
+        $scope.details = { Device_Id: $scope.device_id, Measurement_Date: date, Store_Code: storecode };
         loadAllEnergyConsumption($scope.details);
 
     }
@@ -161,7 +162,7 @@ app.controller('EnergyUsageHourlyGraphController', function EnergyUsageHourlyGra
     //function to call countryid and country for dropdown
     function getDevicesdropdown() {
 
-        var promise = EnergyUsageHourlyGraphService.GetAllDevices();
+        var promise = EnergyUsageHourlyGraphService.getAllDevices();
         promise.then(
 
             function (response) {

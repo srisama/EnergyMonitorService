@@ -129,10 +129,10 @@
                         </a>
                     </div>
                     <ul id="js-nav-menu" class="nav-menu">
-                        <li>
-                            <a href="/Dashboard" class="sub" title="Admin" data-filter-tags="Admin">
+                        <li class="hide" id="usermanagement">
+                            <a href="/UserManagement" class="sub" title="Admin" data-filter-tags="Admin">
                                 <i class="fal fa-cog"></i>
-                                <span class="nav-link-text" data-i18n="nav.customers">Admin</span>
+                                <span class="nav-link-text" data-i18n="nav.customers">User Management</span>
                             </a>
                         </li>
 
@@ -1179,6 +1179,8 @@
         function logout() {
             var websiteurl = "https://localhost:44322/";
             window.location.href = websiteurl + "Index";
+
+            sessionStorage.removeItem('usermanagement');
             $rootScope.$on('$stateChangeStart',
                 function (event, toState, toParams, fromState, fromParams) {
                     // check if user is navigating to anypage other than login, if so check for token, if token is not present redirect to login page
@@ -1207,4 +1209,13 @@
 
 </body>
 </html>
+<script>
+    var Admin = sessionStorage.getItem('Admin');
+    if (Admin == 1) {
+        $('#usermanagement').removeClass('hide');
+    }
+    else {
+        $('#usermanagement').addClass('hide');
+    }
+</script>
 

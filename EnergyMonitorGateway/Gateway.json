@@ -27,6 +27,81 @@
       "UpstreamHttpMethod": [ "POST" ]
     },
 
+    {
+      "DownstreamPathTemplate": "/api/Users/GetRoles",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2000"
+        }
+      ],
+      "UpstreamPathTemplate": "/Roles",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/Users/GetUsers",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2000"
+        }
+      ],
+      "UpstreamPathTemplate": "/Users",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Users/GetUserbyId/",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2000"
+        }
+      ],
+      "UpstreamPathTemplate": "/GetUserbyId/",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/Users/AddUser",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2000"
+        }
+      ],
+      "UpstreamPathTemplate": "/AddUser/",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Users/DeleteUser",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2000"
+        }
+      ],
+      "UpstreamPathTemplate": "/DeleteUser/",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Users/UpdateUser",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2000"
+        }
+      ],
+      "UpstreamPathTemplate": "/UpdateUser/",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+
     ////////////////////////////////////////////////devicess //////////////////////////////////////////////
     {
       "DownstreamPathTemplate": "/api/Devices/GetDevicebyId/",

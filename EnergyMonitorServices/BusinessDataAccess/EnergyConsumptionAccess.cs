@@ -77,12 +77,13 @@ namespace EnergyMonitorServices.BusinessDataAccess
                 var transaction = connection.BeginTransaction();
                 try
                 {
-                    var procedure = "[dbo].[usp_get_energy_usage_Hourly_Graph] @device_id,@date";
+                    var procedure = "[dbo].[usp_get_energy_usage_Hourly_Graph] @device_id,@date,@storecode";
                     var values = new
                     {
                         // adding parameter with name @device_id to the command.
                         device_id = energyConsumption.Device_Id,
-                        date = energyConsumption.Measurement_Date
+                        date = energyConsumption.Measurement_Date,
+                        storecode=energyConsumption.Store_Code
                     };
                     var results = await connection.QueryAsync<object>(procedure, values, transaction);
                     transaction.Commit();
