@@ -154,13 +154,13 @@ app.controller('DeviceUsageController', function DeviceUsageController($scope, $
     //Add New Deviceusage function
     $scope.insertdeviceusage = function () {
         var deviceid = $scope.device_id;
-        var energyconsumption = $('#energyconsumption').val();
+        var energyconsumption = parseInt($('#energyconsumption').val());
         var measurementdate = $('#measurementdate').val();
-        var measurementhour = $('#measurementhour :selected').val();
+        var measurementhour = $('#ddlhour :selected').val();
+        var storecode = $('#ddlstorecode :selected').text();
+        
         //var measurementtime1 = setdatetime2(measurementtime);
-        var energyconsumptionint = parseInt(energyconsumption);
-        var measurementhourint = parseInt(measurementhour);
-        var details = { Device_Id: deviceid, Energy_Consumption: energyconsumptionint, Measurement_Date: measurementdate, Measurement_hour: measurementhourint };
+        var details = { Device_Id: deviceid, Energy_Consumption: energyconsumption, Measurement_Date: measurementdate, Measurement_hour: measurementhour, Store_Code: storecode };
         var promisePost = DeviceUsageService.insertDeviceUsage(details);
         promisePost.then(function (status, data) {
             $('#energyconsumption').val('');
@@ -197,7 +197,7 @@ app.controller('DeviceUsageController', function DeviceUsageController($scope, $
                 $('#measurementdate').val($scope.singledeviceusage.measurement_date);
                 //var measurementhourint = parseInt($scope.singledeviceusage.measurement_hour);
                 $('#ddlhour').val($scope.singledeviceusage.measurement_hour);
-
+                $('#ddlstorecode :selected').text($scope.singledeviceusage.store_code);
                 $('#nspagecontrols').removeClass('hide');
                 $('#updatebtn').removeClass('hide');
                 $('#cancelbtn').removeClass('hide');
@@ -231,16 +231,20 @@ app.controller('DeviceUsageController', function DeviceUsageController($scope, $
         var energyid = $scope.energy_id;
         var energyconsumption = $('#energyconsumption').val();
         var measurementdate = $('#measurementdate').val();
-        var measurementhour = $('#measurementhour :selected').val();
+        var measurementhour = $('#ddlhour :selected').text();
+        var measurementhour1 = parseInt($('#ddlhour :selected').text());
+        var storecode = $('#ddlstorecode :selected').text();
+
         //var measurementtime1 = setdatetime2(measurementtime);
         var energyconsumptionint = parseInt(energyconsumption);
         var measurementhourint = parseInt(measurementhour);
-        var details = { Energy_Id: energyid, Energy_Consumption: energyconsumptionint, Measurement_Date: measurementdate, Measurement_hour: measurementhourint };
+        var details = { Energy_Id: energyid, Energy_Consumption: energyconsumptionint, Measurement_Date: measurementdate, Measurement_hour: measurementhour, Store_Code: storecode };
         var promisePost = DeviceUsageService.updateDeviceusage(details);
         promisePost.then(function (result) {
             $('#energyconsumption').val('');
             $('#measurementdate').val('');
             $('#ddlhour').val(00);
+            $('#ddlstorecode').val(00);
             $scope.device_id = "0";
             $scope.filterdevice = 0;
             $scope.srchDevice = '';
@@ -288,7 +292,11 @@ app.controller('DeviceUsageController', function DeviceUsageController($scope, $
 
 
     $rootScope.GetEnergyConsumption = function () {
-        $scope.details = { Device_Id: $scope.device_id };
+        var storecode = $('#ddlstorecode1 :selected').text();
+        var date = $('#measurementdate1').val();
+        $scope.details = { Device_Id: $scope.device_id, Measurement_Date: date, Store_Code: storecode };
+
+        //$scope.details = { Device_Id: $scope.device_id };
         loadAllEnergyConsumption($scope.details);
 
     }
@@ -393,19 +401,14 @@ app.controller('DeviceUsageController', function DeviceUsageController($scope, $
 
 
     $rootScope.Downloadexcel = function () {
-        $rootScope.allLocationGroupDownloadData = $scope.alllocationgroupdata;
-        var fname = 'LocationGroup' + '.xls';
+        $rootScope.allEnergyUsageHourlyDownloadData = $scope.allenergyconsumptiondata;
+        var fname = 'EnergyUsageHourly' + '.xls';
         var tab_text = "<table border='1px'>";
-        tab_text += "<tr><th>" + 'Location Group' + "</th><th>" + 'Status' + "</th></tr>";
+        tab_text += "<tr><th>" + 'Device Name' + "</th><th>" + 'Energy Consumption (Kwh)' + "</th><th>" + 'Measurement Date' + "</th><th>" + 'Measurement Hour' + "</th><th>" + 'Store Code' + "</th></tr>";
 
-        $.each($rootScope.allLocationGroupDownloadData, function (i, j) {
-            if (j.Status == 1) {
-                var updstatus = 'Active';
-            }
-            else {
-                var updstatus = 'InActive';
-            }
-            tab_text += "<tr><td>" + j.LocationGroup + "</td><td>" + updstatus + "</td></tr>";
+        $.each($rootScope.allEnergyUsageHourlyDownloadData, function (i, j) {
+           
+            tab_text += "<tr><td>" + j.device_name + "</td><td>" + j.energy_consumption + "</td><td>" + j.measurement_date + "</td><td>" + j.measurement_hour + "</td><td>" + j.store_code + "</td></tr>";
         });
         tab_text = tab_text + "</table>";
 
@@ -436,8 +439,8 @@ app.controller('DeviceUsageController', function DeviceUsageController($scope, $
     }
 
     $rootScope.DownloadPdf = function () {
-        $rootScope.allLocationGroupDownloadData = $scope.alllocationgroupdata;
-        var pagetitle = 'LocationGroup';
+        $rootScope.allEnergyUsageHourlyDownloadData = $scope.allenergyconsumptiondata;
+        var pagetitle = 'EnergyUsageHourly';
         $('#' + 'printgrid').find('#pagining').hide();
 
         $('#' + 'printgrid').find('#dumxls').hide();
@@ -445,15 +448,10 @@ app.controller('DeviceUsageController', function DeviceUsageController($scope, $
 
 
         var tab_text = "<table class='table table-sm m-0'>";
-        tab_text += "<thead><tr><th>" + 'Location Group' + "</th><th>" + 'Status' + "</th></tr></thead><tbody>";
-        $.each($rootScope.allLocationGroupDownloadData, function (i, j) {
-            if (j.Status == 1) {
-                var updstatus = 'Active';
-            }
-            else {
-                var updstatus = 'InActive';
-            }
-            tab_text += "<tr><td>" + j.LocationGroup + "</td><td>" + updstatus + "</td></tr>";
+        tab_text += "<thead><tr><th>" + 'Device Name' + "</th><th>" + 'Energy Consumption (Kwh)' + "</th><th>" + 'Measurement Date' + "</th><th>" + 'Measurement Hour' + "</th><th>" + 'Store Code' + "</th></tr></thead><tbody>";
+        $.each($rootScope.allEnergyUsageHourlyDownloadData, function (i, j) {
+           
+            tab_text += "<tr><td>" + j.device_name + "</td><td>" + j.energy_consumption + "</td><td>" + j.measurement_date + "</td><td>" + j.measurement_hour + "</td><td>" + j.store_code + "</td></tr>";
         });
         tab_text = tab_text + "</tbody></table>";
 

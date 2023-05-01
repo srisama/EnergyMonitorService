@@ -1,4 +1,4 @@
-﻿var app = angular.module('EnergyUsageHourlyGraphModule', ['angularUtils.directives.dirPagination']);
+﻿var app = angular.module('EnergyUsageHourlyGraphModule', ['ng-fusioncharts','angularUtils.directives.dirPagination']);
 
 app.service('EnergyUsageHourlyGraphService', function ($http) {
     /* alert("after service");*/
@@ -20,7 +20,7 @@ app.controller('OtherController', function ($rootScope, $scope, $http, EnergyUsa
 
 app.controller('EnergyUsageHourlyGraphController', function EnergyUsageHourlyGraphController($scope, $rootScope, $http, EnergyUsageHourlyGraphService) {
 
-    $scope.details = { CustomerID: "ProtechTst" };
+    //$scope.details = { CustomerID: "ProtechTst" };
    
     getDevicesdropdown();
     //loadAllEnergyConsumption();
@@ -111,9 +111,11 @@ app.controller('EnergyUsageHourlyGraphController', function EnergyUsageHourlyGra
 
             function (response) {
                 $scope.energyconsumptionlist = response.data;
-                $scope.allenergyconsumptiondata = $scope.energyconsumptionlist.data;
+                 $scope.allenergyconsumptiondata = $scope.energyconsumptionlist.data;
 
-                $scope.hourgraphDataSource = $scope.renderFusionChart('Hourly Consumption', '00-24 Hours', 'Consumption ', $scope.unit, $scope.allenergyconsumptiondata);
+                $scope.gethourgraphdata();
+
+                $scope.hourgraphDataSource = $scope.renderFusionChart('Hourly Consumption', '00-24 Hours', 'Consumption ', $scope.gethourgraphdata());
 
                 //$scope.renderFusionChart('Hourly Consumption', '00-24 Hours', 'Consumption ', $scope.allenergyconsumptiondata);
             },
@@ -124,12 +126,23 @@ app.controller('EnergyUsageHourlyGraphController', function EnergyUsageHourlyGra
         );
     }
 
+    //$scope.HourlyGraph = []
+    $scope.gethourgraphdata = function () {
+        var cat = "[";
+        $.each($scope.allenergyconsumptiondata, function (i, e) {
+            cat += (cat == '[' ? '' : ',') + "{" + '"label":"' + String(e.measurement_hour) + '","value":"' + String(e.energy_consumption) + '"' + "}";
+        });
+        cat += "]";
+        /*   console.log(cat);*/
+        return jQuery.parseJSON(cat);
+        console.log(cat);
+    }
+
     $rootScope.GetEnergyUsage = function () {
         var storecode = $('#ddlstorecode :selected').text();
         var date = $('#measurementdate').val();
         $scope.details = { Device_Id: $scope.device_id, Measurement_Date: date, Store_Code: storecode };
         loadAllEnergyConsumption($scope.details);
-
     }
 
 

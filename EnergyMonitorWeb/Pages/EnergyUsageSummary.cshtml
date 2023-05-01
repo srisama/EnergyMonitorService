@@ -150,15 +150,19 @@
                                             Total Energy Usage
                                             <span class="glyphicon sort-icon" ng-show="sortKey=='total_energy_usage'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                                         </th>
+                                        <th ng-click="sort('store_code')">
+                                            Store Code
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='total_energy_usage'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                        </th>
                                         <th>Action</th>
 
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @*<tr dir-paginate="s in allenergyconsumptiondata | filter : search|itemsPerPage: pageSize|orderBy:sortKey:reverse" current-page="currentPage">*@
+                                    <tr dir-paginate="s in allenergyconsumptiondata | filter : search|itemsPerPage: pageSize|orderBy:sortKey:reverse" current-page="currentPage">
 
 
-                                    <tr ng-repeat="s in allenergyusagesummarydata">
+                                        @*<tr ng-repeat="s in allenergyusagesummarydata">*@
 
                                         <td>{{s.summary_id}}</td>
 
@@ -168,6 +172,7 @@
 
                                         <td>{{s.total_energy_usage}}</td>
 
+                                        <td>{{s.store_code}}</td>
 
                                         <td>
                                             <button class="editbtn" ng-click="editenergyusagesummary(s.summary_id,$index)">Edit</button>

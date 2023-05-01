@@ -23,56 +23,56 @@
 
     <div ng-controller="DeviceUsageController" class="row">
         <div class="col-lg-12 col-xl-6">
-            @*<div class="row">
-            <div class="col-lg-4">
-                <div class="form-group row ">
-                    <label for="Device" class="col-md-4">Device</label>
-                    <div class="form-label-group col-md-8">
-                        <input placeholder="Select Device" id="Device_Id" class="custom-select form-control dropdo wngraph ddlse achsite" ng-click="devicediv1()" ng-model="srchDevice1" ng-change="getfilterdevices1()" />
-                        <span id="meteridnospcl" class="row hide formspan">Error : No Special Characters</span>
-                    </div>
-                    <div id="devicediv1" class="srchdropdown2 hide " ng-class="{'hide':filterdevice1=='0'}" ng-if="filterdevice1='1'&& device_id1=='0'">
-                        <ul class="srchdro pdown no-bullets">
-                            <li class="srchdro pdown" ng-repeat="device in allDevicesdropdownData1|filter:{device_name1:srchDevice1}" ng-click="getselecteddevice1(device.device_id,device.device_name)">{{device.device_name}}</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-2">
-                <div class="form-group row">
-                    <div class="form-label-group col-md-12">
-                        <input type="button" value="GetEnergyConsumption" ng-click="GetEnergyConsumption()" class="btnsbmt" id="savebtn" ng-disabled="savebtndis" />
-                    </div>
-                </div>
-            </div>
-
-
-        </div>*@
-
             <div class="row">
-               
+
+                <div class="form-group row">
+                    <label for="MeasurentHour" class="col-md-2">Store</label>
+                    <div class="form-label-group col-md-4">
+                        <select placeholder="Select" class="activeslct1" id="ddlstorecode1" @*ng-change="finalvalidation()"*@ ng-model="EnergyConsumption.Store_Code1">
+                            <option value="00">MMR-0004</option>
+                            <option value="01">SOU-0282</option>
+                            <option value="02">SOU-0138</option>
+                            <option value="03">MMR-0007</option>
+                            <option value="04">MMR-0275</option>
+                            <option value="05">MMR-0252</option>
+                            <option value="06">WR2-0288</option>
+                            <option value="07">ROW-0288</option>
+                        </select>
+                    </div>
+                </div>
+
                 <div class="form-group row ">
-                    <label for="Device" class="col-md-4">Device</label>
+                    <label for="Device" class="col-md-2">Device</label>
                     <div class="form-label-group col-md-8">
-                        @*<input type="text" id="continent" class="form-control isval idate inutht" value="" ng-model="Parameters.ParameterName" name="Country" ng-change="finalvalidation()" maxlength="20" />*@
                         <input placeholder="Select Device" id="Device_Id" class="custom-select form-control dropdo wngraph ddlse achsite" ng-click="devicediv()" ng-model="srchDevice" ng-change="getfilterdevices()" />
                         <span id="meteridnospcl" class="row hide formspan">Error : No Special Characters</span>
                     </div>
-                    <div id="devicediv" class="srchdropdown4 hide " ng-class="{'hide':filterdevice=='0'}" ng-if="filterdevice='1'&& device_id=='0'">
+                    <div id="devicediv" class="srchdropdown_2 hide " ng-class="{'hide':filterdevice=='0'}" ng-if="filterdevice='1'&& device_id=='0'">
                         <ul class="srchdro pdown no-bullets">
                             <li class="srchdro pdown" ng-repeat="device in allDevicesdropdownData|filter:{device_name:srchDevice}" ng-click="getselecteddevice(device.device_id,device.device_name)">{{device.device_name}}</li>
                         </ul>
                     </div>
                 </div>
 
+                <div class="form-group row ">
+                    <label for="MeasurentTime" class="col-md-5">Measurent Date</label>
+                    <div class="form-label-group col-md-7">
+                        <input type="text" id="measurementdate1" class="form-control isval idate inutht" value="" ng-model="EnergyConsumption.Measurement_Date1" name="devicetype" ng-change="finalvalidation()" maxlength="50" />
+                        <span id="measurementdateenospcl" class="row hide formspan">Error : No Special Characters</span>
 
-                <div class="form-group row" style="margin-left:1px">
-                    <div class="form-label-group col-md-12">
-                        <input type="button" value="Show Consumption" ng-click="GetEnergyConsumption()" class="btnsbmt" id="savebtn" @*ng-disabled="savebtndis"*@ />
                     </div>
                 </div>
+
+
+                <div class="form-group row">
+                    <div class="form-label-group col-md-4">
+                        <input type="button" value="Show Consumption" ng-click="GetEnergyConsumption()" class="btnsbmt_1" id="savebtn1" @*ng-disabled="savebtndis"*@ />
+                    </div>
+                </div>
+
             </div>
+
+            <!--<input type="button" value="Show Consumption" ng-click="GetEnergyConsumption()" class="btnsbmt" id="savebtn"--> @*ng-disabled="savebtndis"*@ <!--/>-->
 
             <div id="panel-7" class="panel">
                 <div class="card-header" style="background-color: #4679cc; color:#fff">
@@ -139,61 +139,70 @@
 
                                             </div>
                                         </div>
-                                        <!--<div class="form-group row ">
-                                            <label for="MeasurentHour" class="col-md-4">Measurent Hour</label>
-                                            <div class="form-label-group col-md-8">
-                                                <input type="text" id="measurementhour" class="form-control isval idate inutht" value="" ng-model="EnergyConsumption.Measurement_Hour" name="devicetype"--> @*ng-change="finalvalidation()"*@ <!--maxlength="50" />
-                                                <span id="measurementhourenospcl" class="row hide formspan">Error : No Special Characters</span>
-
+                                    </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="MeasurentHour" class="col-md-4">Measurent Hour</label>
+                                                <div class="form-label-group col-md-8">
+                                                    <select placeholder="Select Hour" class="activeslct" id="ddlhour" @*ng-change="finalvalidation()"*@ ng-model="EnergyConsumption.Measurement_Hour">
+                                                        <option value="00">00</option>
+                                                        <option value="01">01</option>
+                                                        <option value="02">02</option>
+                                                        <option value="03">03</option>
+                                                        <option value="04">04</option>
+                                                        <option value="05">05</option>
+                                                        <option value="06">06</option>
+                                                        <option value="07">07</option>
+                                                        <option value="08">08</option>
+                                                        <option value="09">09</option>
+                                                        <option value="10">10</option>
+                                                        <option value="11">11</option>
+                                                        <option value="12">12</option>
+                                                        <option value="13">13</option>
+                                                        <option value="14">14</option>
+                                                        <option value="15">15</option>
+                                                        <option value="16">16</option>
+                                                        <option value="17">17</option>
+                                                        <option value="18">18</option>
+                                                        <option value="19">19</option>
+                                                        <option value="20">20</option>
+                                                        <option value="21">21</option>
+                                                        <option value="22">22</option>
+                                                        <option value="23">23</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>-->
 
-                                        <div class="form-group row">
-                                            <label for="MeasurentHour" class="col-md-4">Measurent Hour</label>
-                                            <div class="form-label-group col-md-8">
-                                                <select placeholder="Select Hour" class="activeslct" id="ddlhour" @*ng-change="finalvalidation()"*@ ng-model="EnergyConsumption.Measurement_Hour">
-                                                    <option value="00">00</option>
-                                                    <option value="01">01</option>
-                                                    <option value="02">02</option>
-                                                    <option value="03">03</option>
-                                                    <option value="04">04</option>
-                                                    <option value="05">05</option>
-                                                    <option value="06">06</option>
-                                                    <option value="07">07</option>
-                                                    <option value="08">08</option>
-                                                    <option value="09">09</option>
-                                                    <option value="10">10</option>
-                                                    <option value="11">11</option>
-                                                    <option value="12">12</option>
-                                                    <option value="13">13</option>
-                                                    <option value="14">14</option>
-                                                    <option value="15">15</option>
-                                                    <option value="16">16</option>
-                                                    <option value="17">17</option>
-                                                    <option value="18">18</option>
-                                                    <option value="19">19</option>
-                                                    <option value="20">20</option>
-                                                    <option value="21">21</option>
-                                                    <option value="22">22</option>
-                                                    <option value="23">23</option>
-                                                </select>
+                                            <div class="form-group row">
+                                                <label for="StoreCode" class="col-md-2">Store</label>
+                                                <div class="form-label-group col-md-4">
+                                                    <select placeholder="Select" class="activeslct2" id="ddlstorecode" @*ng-change="finalvalidation()"*@ ng-model="EnergyConsumption.Store_Code">
+                                                        <option value="00">MMR-0004</option>
+                                                        <option value="01">SOU-0282</option>
+                                                        <option value="02">SOU-0138</option>
+                                                        <option value="03">MMR-0007</option>
+                                                        <option value="04">MMR-0275</option>
+                                                        <option value="05">MMR-0252</option>
+                                                        <option value="06">WR2-0288</option>
+                                                        <option value="07">ROW-0288</option>
+                                                    </select>
+                                                </div>
                                             </div>
+
+
+                                            <div class="form-group row">
+                                                <label for="GroupOrder" class="col-md-4"></label>
+                                                <div class="form-label-group col-md-8">
+                                                    <input type="button" value="Add" ng-click="insertdeviceusage()" class="btnsbmt hide" id="savebtn" @*ng-disabled="savebtndis"*@ />
+                                                    <input type="button" value="Update" ng-click="updatedeviceusage()" class="btnsbmt hide" id="updatebtn" @*ng-disabled="updatebtndis"*@ />
+                                                    <input type="button" value="Cancel" ng-click="canceldeviceusage()" class="btnsbmt hide" style="margin-top: 5px;" id="cancelbtn" @*ng-disabled="cancelbtndis"*@ />
+                                                </div>
+                                            </div>
+
+
                                         </div>
-
-
-                                        <div class="form-group row">
-                                            <label for="GroupOrder" class="col-md-4"></label>
-                                            <div class="form-label-group col-md-8">
-                                                <input type="button" value="Add" ng-click="insertdeviceusage()" class="btnsbmt hide" id="savebtn" @*ng-disabled="savebtndis"*@ />
-                                                <input type="button" value="Update" ng-click="updatedeviceusage()" class="btnsbmt hide" id="updatebtn" @*ng-disabled="updatebtndis"*@ />
-                                                <input type="button" value="Cancel" ng-click="canceldeviceusage()" class="btnsbmt hide" style="margin-top: 5px;" id="cancelbtn" @*ng-disabled="cancelbtndis"*@ />
-                                            </div>
-                                        </div>
-
 
                                     </div>
-
-                                </div>
                             </form>
                             @*</div>*@
 
@@ -227,15 +236,15 @@
                                 <thead class="bg-primary-500">
                                     <tr>
                                         @*<th ng-click="sort('energy_id')">
-            Energy Id
-            <span class="glyphicon sort-icon" ng-show="sortKey=='energy_id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-        </th>*@
+                                        Energy Id
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='energy_id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                    </th>*@
                                         <th ng-click="sort('device_name')">
                                             Device Name
                                             <span class="glyphicon sort-icon" ng-show="sortKey=='device_name'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                                         </th>
                                         <th ng-click="sort('energy_concumption')">
-                                            Energy Concumption
+                                            Energy Consumption (Kwh)
                                             <span class="glyphicon sort-icon" ng-show="sortKey=='energy_concumption'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                                         </th>
                                         <th ng-click="sort('measurement_date')">
@@ -246,6 +255,10 @@
                                             Measurement Hour
                                             <span class="glyphicon sort-icon" ng-show="sortKey=='measurement_hour'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                                         </th>
+                                        <th ng-click="sort('store_code')">
+                                            Store Code
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='store_code'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                        </th>
                                         <th>Action</th>
 
                                     </tr>
@@ -254,7 +267,7 @@
                                     <tr dir-paginate="s in allenergyconsumptiondata | filter : search|itemsPerPage: pageSize|orderBy:sortKey:reverse" current-page="currentPage">
 
 
-                                    @*<tr ng-repeat="s in allenergyconsumptiondata">*@
+                                        @*<tr ng-repeat="s in allenergyconsumptiondata">*@
 
                                         @*<td>{{s.energy_id}}</td>*@
 
@@ -265,6 +278,7 @@
                                         <td>{{s.measurement_date}}</td>
 
                                         <td>{{s.measurement_hour}}</td>
+                                        <td>{{s.store_code}}</td>
 
 
                                         <td>
@@ -302,10 +316,10 @@
 <script>
     $('#measurementdate').datepicker({
         autoclose: true,
-        format: "dd-mm-yyyy"
-        //onselect: function (selected, evnt) {
-        //    alert('inside alert');
-        //    updateAb(selected);
-        //}
+        format: "yyyy-mm-dd"
+    });
+    $('#measurementdate1').datepicker({
+        autoclose: true,
+        format: "yyyy-mm-dd"
     });
 </script>

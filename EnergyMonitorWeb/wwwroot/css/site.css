@@ -2,21 +2,22 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: #0366d6;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
+
 .btnsbmt {
     width: 142px !important;
     color: #fff;
@@ -24,20 +25,38 @@ a {
     background-color: #4679cc;
     border-color: #5b90e8;
 }
+
     .btnsbmt:disabled {
         background: #999;
         color: #fff;
         cursor: not-allowed;
         border: none;
     }
+
+.btnsbmt_1 {
+    width: 130px !important;
+    color: #fff;
+    height: 32px !important;
+    background-color: #4679cc;
+    border-color: #5b90e8;
+    margin-left: 15px;
+}
+
+    .btnsbmt_1:disabled {
+        background: #999;
+        color: #fff;
+        cursor: not-allowed;
+        border: none;
+    }
+
 .btnsbmt1 {
     width: 142px !important;
     color: #fff;
     height: 30px !important;
     background-color: #4679cc;
     border-color: #5b90e8;
- /*   margin-left: 70px;*/
-    float:right;
+    /*   margin-left: 70px;*/
+    float: right;
 }
 
     .btnsbmt1:disabled {
@@ -51,6 +70,7 @@ a {
 .btncancel {
     margin-top: 5px !important;
 }
+
 .activeslct {
     width: 290px !important;
     height: 33px !important;
@@ -58,6 +78,31 @@ a {
     border: solid 1px #ccc !important;
     border-radius: 5px !important;
 }
+
+.activeslct4 {
+    width: 180px !important;
+    height: 33px !important;
+    background-color: #fff !important;
+    border: solid 1px #ccc !important;
+    border-radius: 5px !important;
+}
+
+.activeslct1 {
+    width: 163px !important;
+    height: 33px !important;
+    background-color: #fff !important;
+    border: solid 1px #ccc !important;
+    border-radius: 5px !important;
+}
+.activeslct2 {
+    width: 290px !important;
+    height: 33px !important;
+    background-color: #fff !important;
+    border: solid 1px #ccc !important;
+    border-radius: 5px !important;
+    margin-left: 80px !important;
+}
+
 .editbtn {
     height: 17px !important;
     width: 40px !important;
@@ -68,6 +113,7 @@ a {
     border-radius: 4px !important;
     padding-top: 1px !important;
 }
+
 .editbtn1 {
     height: 20px !important;
     width: 47px !important;
@@ -91,23 +137,32 @@ a {
     background-color: #286090 !important;
     border-color: #204d74 !important;
 }
-.searchcss{
-    margin-bottom:5px !important;
+
+.searchcss {
+    margin-bottom: 5px !important;
 }
+
 .pgsize {
     padding-left: 40px;
 }
+
 .pging {
-    padding-left:350px;
+    padding-left: 350px;
 }
+
 .paginationcss {
     margin-left: 490px !important;
 }
+
 .srchinput {
     height: 35px !important;
     width: 180px !important;
 }
-ul.pagination{float:right !important;}
+
+ul.pagination {
+    float: right !important;
+}
+
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: #fff;
     background-color: #1b6ec2;
@@ -117,52 +172,56 @@ ul.pagination{float:right !important;}
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
 }
+
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
 }
 
 .hide {
     display: none !important;
 }
+
 .dropdowngraph {
     font-size: 13px !important;
     height: 35px !important;
@@ -194,6 +253,7 @@ div.srchdropdown1 {
     margin-top: 37px;
     background-color: #fff;
 }
+
 div.srchdropdown2 {
     cursor: pointer;
     font-size: 12px;
@@ -206,6 +266,40 @@ div.srchdropdown2 {
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
     z-index: 1;
     margin-left: 166px !important;
+    margin-top: 40px;
+    background-color: #fff;
+    list-style: none;
+}
+div.srchdropdown4 {
+    cursor: pointer;
+    font-size: 12px;
+    height: auto;
+    max-height: 200px;
+    min-height: 0px;
+    overflow: auto;
+    position: absolute;
+    /*width: calc(65% - 17px);*/
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+    z-index: 1;
+    margin-left: 55px !important;
+    margin-top: 34px;
+    background-color: #fff;
+    list-style: none;
+}
+
+
+div.srchdropdown_2 {
+    cursor: pointer;
+    font-size: 12px;
+    height: auto;
+    max-height: 200px;
+    min-height: 0px;
+    overflow: auto;
+    position: absolute;
+    width: calc(17% - 17px);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+    z-index: 1;
+    margin-left: 59px !important;
     margin-top: 40px;
     background-color: #fff;
     list-style: none;
@@ -245,19 +339,19 @@ div.srchdropdown3 {
     list-style: none;
 }
 
-div.srchdropdown3 li:hover {
-    background-color: #cacccf;
-    /*  color: yellow;*/
-}
-
-    div.srchdropdown2 li:hover {
+    div.srchdropdown3 li:hover {
         background-color: #cacccf;
         /*  color: yellow;*/
     }
 
+div.srchdropdown2 li:hover {
+    background-color: #cacccf;
+    /*  color: yellow;*/
+}
+
 ul.no-bullets {
     list-style-type: none;
-   /* margin: 0;
+    /* margin: 0;
     padding: 0;*/
 }
 
@@ -266,10 +360,12 @@ li.srchdropdown1 {
     line-height: 2.0;
     color: #495057;
 }
-li.srchdropdown1:hover {
-   background-color: #007bff;
-   color: #fff;
+
+    li.srchdropdown1:hover {
+        background-color: #007bff;
+        color: #fff;
     }
+
 li.srchdropdown2 {
     font-size: 12px;
     line-height: 2.0;
@@ -280,10 +376,12 @@ li.srchdropdown2 {
         background-color: #007bff;
         color: #fff;
     }
+
 .formspan {
     padding-left: 20px;
     color: red;
 }
+
 serialtable, tr, td {
     width: 71px !important;
     height: 33px !important;
@@ -293,24 +391,31 @@ serialtable, tr, td {
     width: 71px !important;
     height: 33px !important;
 }
+
 .nowrap {
     white-space: nowrap;
 }
+
 .tblinputhw {
     width: 42px;
 }
+
 .tblinputhw1 {
     width: 50px;
 }
+
 .tblinputhwutil {
     width: 33px;
 }
+
 .tblinputhwcust {
     width: 70px;
 }
+
 .tblinputhwmlt {
     width: 50px;
 }
+
 .onoffswitchone {
     position: relative;
     width: 40px;
@@ -318,6 +423,7 @@ serialtable, tr, td {
     -moz-user-select: none;
     -ms-user-select: none;
 }
+
 .onoffswitch-checkboxone {
     display: none;
 }
@@ -397,9 +503,11 @@ serialtable, tr, td {
 .onoffswitch-checkboxone:checked + .onoffswitch-labelone .onoffswitch-switchone {
     right: 22px;
 }
+
 .uomtblfont {
     font-size: 12px !important;
 }
+
 .avoid-clicks {
     cursor: not-allowed !important;
 }
@@ -413,14 +521,16 @@ serialtable, tr, td {
     cursor: pointer;
     color: #343a40;
 }
+
 .datatd {
     width: 60px !important;
 }
+
 .showconfig {
     color: #4679cc !important;
-
 }
- .showconfig:hover {
+
+    .showconfig:hover {
         color: #495057 !important;
     }
 
@@ -429,10 +539,11 @@ serialtable, tr, td {
     white-space: nowrap;
 }
 
-.testimonial-group > .row > .col-xs-4 {
+    .testimonial-group > .row > .col-xs-4 {
         display: inline-block;
         float: none;
     }
+
 .col-4 {
     color: #fff;
     font-size: 48px;
@@ -624,12 +735,15 @@ serialtable, tr, td {
 .onoffswitch-checkboxone:checked + .onoffswitch-labelone .onoffswitch-switchone {
     right: 22px;
 }
+
 .clrgreen {
     color: darkgreen !important;
 }
+
 .clrred {
     color: red !important;
 }
+
 .homebutton {
     background-color: #2d578f;
     border: 1px solid black;
@@ -637,12 +751,14 @@ serialtable, tr, td {
     height: 35px;
     width: 70px;
 }
+
 .homebuttonspan {
     text-align: center;
     margin-top: 6px;
     color: #FFF;
     font-size: 14px;
 }
+
 .homebutton:hover {
     transform: scale(1.0);
     background: #207da9;

@@ -12,13 +12,13 @@ namespace EnergyMonitorServices.BusinessEntities
         private Int32 energy_consumption;
         private String measurement_date;
         private String store_code;
-        private Int32 measurement_hour;
+        private String measurement_hour;
 
         public EnergyConsumption()
         {
         }
 
-        public EnergyConsumption(Int32 energy_id, Int32 device_id, Int32 energy_consumption, String measurement_date,Int32 measurement_hour, String store_code)
+        public EnergyConsumption(Int32 energy_id, Int32 device_id, Int32 energy_consumption, String measurement_date, String measurement_hour, String store_code)
         {
             this.energy_id = energy_id;
             this.device_id = device_id;
@@ -49,7 +49,7 @@ namespace EnergyMonitorServices.BusinessEntities
             get { return measurement_date; }
             set { measurement_date = value; }
         }
-        public Int32 Measurement_Hour
+        public String Measurement_Hour
         {
             get { return measurement_hour; }
             set { measurement_hour = value; }

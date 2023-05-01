@@ -38,6 +38,35 @@ namespace EnergyMonitorServices.BusinessDataAccess
             }
         }
 
+        public async Task<object> EnergyUsagebyTwoDates(EnergyUsageSummary energyUsageSummary)
+        {
+            using (var connection = new SqlConnection(sqlConnection))
+            {
+                await connection.OpenAsync();
+                var transaction = connection.BeginTransaction();
+                try
+                {
+                    var procedure = "[dbo].[usp_get_energy_usage_DayWise_Graph] @device_id,@fromdate,@todate,@storecode";
+                    var values = new
+                    {
+                        // adding parameter with name @device_id to the command.
+                        device_id = energyUsageSummary.Device_Id,
+                        fromdate = energyUsageSummary.From_Date,
+                        todate = energyUsageSummary.To_Date,
+                        storecode = energyUsageSummary.Store_Code
+                    };
+                    var results = await connection.QueryAsync<object>(procedure, values, transaction);
+                    transaction.Commit();
+                    return results;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+            }
+        }
+
         public async Task<IEnumerable<object>> GetEnergyUsageSummaries(EnergyUsageSummary energyUsageSummary)
         {
             using (var connection = new SqlConnection(sqlConnection))

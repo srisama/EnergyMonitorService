@@ -16,6 +16,10 @@ app.service('EnergyUsageSummaryService', function ($http) {
         return $http.get(baseUrl + "/EnergyUsageSummary");
     }
 
+    this.getConsumptionsbyDates = function (data) {
+        return $http.post(baseUrl + "/EnergyConsumptionbyTwoDates", data, { headers: { 'Content-Type': 'application / json, text / plain, */*' } });
+    }
+
     this.GetEnergyUsageSummarybyid = function (data) {
         return $http.post(baseUrl + "/GetEnergyUsageSummarybyId", data, { headers: { 'Content-Type': 'application / json, text / plain, */*' } });
     }
@@ -41,7 +45,7 @@ app.controller('EnergyUsageSummaryController', function EnergyUsageSummaryContro
     getDevicesdropdown();
     //getDevicesdropdown_ddl();
     //var details = { device_id: 1 };
-    loadAllEnergyUsageSummary();
+    //loadAllEnergyUsageSummary();
     $scope.currentPage = 1;
     $scope.pageSize = 50;
     $scope.savebtndis = true;
@@ -86,9 +90,19 @@ app.controller('EnergyUsageSummaryController', function EnergyUsageSummaryContro
         $scope.updatebtndis = true;
     }
 
-    function loadAllEnergyUsageSummary() {
+    $rootScope.GetEnergyUsage = function () {
+        var storecode = $('#ddlstorecode :selected').text();
+        var fromdate = $('#fromdate').val();
+        var todate = $('#todate').val();
+
+        $scope.details = { Device_Id: $scope.device_id, From_Date: fromdate, To_Date: todate, Store_Code: storecode };
+        loadAllEnergyUsageSummarybyDates($scope.details);
+
+    }
+
+    function loadAllEnergyUsageSummarybyDates(data) {
         var details = { Device_Id: 1 };
-        var promise = EnergyUsageSummaryService.GetAllEnergyUsageSummaries();
+        var promise = EnergyUsageSummaryService.getConsumptionsbyDates($scope.details);
         promise.then(
 
             function (response) {
@@ -101,6 +115,23 @@ app.controller('EnergyUsageSummaryController', function EnergyUsageSummaryContro
             }
         );
     }
+
+
+    //function loadAllEnergyUsageSummary(data) {
+    //    var details = { Device_Id: 1 };
+    //    var promise = EnergyUsageSummaryService.GetAllEnergyUsageSummaries();
+    //    promise.then(
+
+    //        function (response) {
+    //            $scope.energyusagesummarylist = response.data;
+    //            $scope.allenergyusagesummarydata = $scope.energyusagesummarylist.data;
+    //        },
+    //        function (error) {
+    //            $scope.allenergyusagesummarydata = null;
+
+    //        }
+    //    );
+    //}
 
     $scope.sort = function (keyname) {
         $scope.sortKey = keyname;
@@ -333,19 +364,14 @@ app.controller('EnergyUsageSummaryController', function EnergyUsageSummaryContro
 
 
     $rootScope.Downloadexcel = function () {
-        $rootScope.allLocationGroupDownloadData = $scope.alllocationgroupdata;
-        var fname = 'LocationGroup' + '.xls';
+        $rootScope.allEnergyUsageDayWiseDownloadData = $scope.allenergyusagesummarydata;
+        var fname = 'EnergyUsageDayWise' + '.xls';
         var tab_text = "<table border='1px'>";
-        tab_text += "<tr><th>" + 'Location Group' + "</th><th>" + 'Status' + "</th></tr>";
+        tab_text += "<tr><th>" + 'Summary Id' + "</th><th>" + 'Device Name' + "</th><th>" + 'Summary Date' + "</th><th>" + 'Total Energy Usage' + "</th><th>" + 'Store Code' + "</th></tr>";
 
-        $.each($rootScope.allLocationGroupDownloadData, function (i, j) {
-            if (j.Status == 1) {
-                var updstatus = 'Active';
-            }
-            else {
-                var updstatus = 'InActive';
-            }
-            tab_text += "<tr><td>" + j.LocationGroup + "</td><td>" + updstatus + "</td></tr>";
+        $.each($rootScope.allEnergyUsageDayWiseDownloadData, function (i, j) {
+          
+            tab_text += "<tr><td>" + j.summary_id + "</td><td>" + j.device_name + "</td><td>" + j.summary_date + "</td><td>" + j.total_energy_usage + "</td><td>" + j.store_code + "</td></tr>";
         });
         tab_text = tab_text + "</table>";
 
@@ -376,8 +402,8 @@ app.controller('EnergyUsageSummaryController', function EnergyUsageSummaryContro
     }
 
     $rootScope.DownloadPdf = function () {
-        $rootScope.allLocationGroupDownloadData = $scope.alllocationgroupdata;
-        var pagetitle = 'LocationGroup';
+        $rootScope.allEnergyUsageDayWiseDownloadData = $scope.allenergyusagesummarydata;
+        var pagetitle = 'EnergyUsageDayWise';
         $('#' + 'printgrid').find('#pagining').hide();
 
         $('#' + 'printgrid').find('#dumxls').hide();
@@ -385,15 +411,9 @@ app.controller('EnergyUsageSummaryController', function EnergyUsageSummaryContro
 
 
         var tab_text = "<table class='table table-sm m-0'>";
-        tab_text += "<thead><tr><th>" + 'Location Group' + "</th><th>" + 'Status' + "</th></tr></thead><tbody>";
-        $.each($rootScope.allLocationGroupDownloadData, function (i, j) {
-            if (j.Status == 1) {
-                var updstatus = 'Active';
-            }
-            else {
-                var updstatus = 'InActive';
-            }
-            tab_text += "<tr><td>" + j.LocationGroup + "</td><td>" + updstatus + "</td></tr>";
+        tab_text += "<thead><tr><th>" + 'Summary Id' + "</th><th>" + 'Device Name' + "</th><th>" + 'Summary Date' + "</th><th>" + 'Total Energy Usage' + "</th><th>" + 'Store Code' + "</th></tr></thead><tbody>";
+        $.each($rootScope.allEnergyUsageDayWiseDownloadData, function (i, j) {
+            tab_text += "<tr><td>" + j.summary_id + "</td><td>" + j.device_name + "</td><td>" + j.summary_date + "</td><td>" + j.total_energy_usage + "</td><td>" + j.store_code + "</td></tr>";
         });
         tab_text = tab_text + "</tbody></table>";
 

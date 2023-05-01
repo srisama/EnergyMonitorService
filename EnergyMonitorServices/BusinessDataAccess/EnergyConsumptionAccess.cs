@@ -51,12 +51,20 @@ namespace EnergyMonitorServices.BusinessDataAccess
                 var transaction = connection.BeginTransaction();
                 try
                 {
-                    var procedure = " [dbo].[usp_get_energy_consumption_by_device] @device_id";
+                    var procedure = "[dbo].[usp_get_energy_usage_Hourly_Graph] @device_id,@date,@storecode";
                     var values = new
                     {
                         // adding parameter with name @device_id to the command.
                         device_id = energyConsumption.Device_Id,
+                        date = energyConsumption.Measurement_Date,
+                        storecode = energyConsumption.Store_Code
                     };
+                    //var procedure = " [dbo].[usp_get_energy_consumption_by_device] @device_id";
+                    //var values = new
+                    //{
+                    //    // adding parameter with name @device_id to the command.
+                    //    device_id = energyConsumption.Device_Id,
+                    //};
                     var results = await connection.QueryAsync<object>(procedure, values, transaction);
                     transaction.Commit();
                     return results;
@@ -131,7 +139,7 @@ namespace EnergyMonitorServices.BusinessDataAccess
                 var transaction = connection.BeginTransaction();
                 try
                 {
-                    var procedure = "[dbo].[usp_add_energy_consumption] @device_id,@energy_consumption,@measurement_date,@measurement_hour";
+                    var procedure = "[dbo].[usp_add_energy_consumption] @device_id,@energy_consumption,@measurement_date,@measurement_hour,@store_code";
                     var values = new
                     {
                         // adding parameter with name @device_id to the command.
@@ -142,6 +150,8 @@ namespace EnergyMonitorServices.BusinessDataAccess
                         measurement_date = energyConsumption.Measurement_Date,
                         // adding parameter with name @measurement_hour to the command.
                         measurement_hour = energyConsumption.Measurement_Hour,
+                        // adding parameter with name @store_code to the command.
+                        store_code = energyConsumption.Store_Code,
                     };
                     var results = await connection.ExecuteScalarAsync<object>(procedure, values, transaction);
                     transaction.Commit();
@@ -163,7 +173,7 @@ namespace EnergyMonitorServices.BusinessDataAccess
                 var transaction = connection.BeginTransaction();
                 try
                 {
-                    var procedure = " [dbo].[usp_update_energy_consumption] @energy_id,@energy_consumption,@measurement_date,@measurement_hour";
+                    var procedure = " [dbo].[usp_update_energy_consumption] @energy_id,@energy_consumption,@measurement_date,@measurement_hour,@store_code";
                     var values = new
                     {
                         // adding parameter with name @@energy_id to the command.
@@ -173,7 +183,9 @@ namespace EnergyMonitorServices.BusinessDataAccess
                         // adding parameter with name @measurement_date to the command.
                         measurement_date = energyConsumption.Measurement_Date,
                         // adding parameter with name @measurement_hour to the command.
-                        measurement_hour = energyConsumption.Measurement_Hour
+                        measurement_hour = energyConsumption.Measurement_Hour,
+                        // adding parameter with name @store_code to the command.
+                        store_code = energyConsumption.Store_Code
                     };
                     var results = await connection.ExecuteScalarAsync<object>(procedure, values, transaction);
                     transaction.Commit();

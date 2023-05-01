@@ -48,6 +48,18 @@ namespace EnergyMonitorServices.Controllers
             var result = await this.energyUsageSummaryManager.GetEnergyUsageSummaryByPrimaryId(energyUsageSummary);
             return new HttpApiResponse(HttpStatusCode.OK, result);
         }
+        /// <summary>
+        /// This is api function to get all the record from the table energyUsageSummary
+        /// </summary>
+        /// <param name="energyUsageSummary">energyUsageSummary</param>
+        /// <returns>HttpApiResponse</returns>
+        [HttpPost]
+        [Route("EnergyConsumptionbyTwoDates")]
+        public async Task<HttpApiResponse> EnergyConsumptionbyTwoDates(EnergyUsageSummary energyUsageSummary)
+        {
+            var result = await this.energyUsageSummaryManager.EnergyUsagebyTwoDates(energyUsageSummary);
+            return new HttpApiResponse(HttpStatusCode.OK, result);
+        }
 
         /// <summary>
         /// This is api function is to insert row to the table energyUsageSummary

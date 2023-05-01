@@ -20,6 +20,11 @@ namespace EnergyMonitorServices.BusinessManager
             return await this.energyUsageSummaryAccess.DeleteEnergyUsageSummary(energyUsageSummary);
         }
 
+        public async Task<object> EnergyUsagebyTwoDates(EnergyUsageSummary energyUsageSummary)
+        {
+            return await this.energyUsageSummaryAccess.EnergyUsagebyTwoDates(energyUsageSummary);
+        }
+
         public async Task<IEnumerable<object>> GetEnergyUsageSummaries(EnergyUsageSummary energyUsageSummary)
         {
             return await this.energyUsageSummaryAccess.GetEnergyUsageSummaries(energyUsageSummary);

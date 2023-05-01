@@ -1,4 +1,4 @@
-﻿var app = angular.module('EnergyUsageDayWiseGraphModule', ['angularUtils.directives.dirPagination']);
+﻿var app = angular.module('EnergyUsageDayWiseGraphModule', ['ng-fusioncharts','angularUtils.directives.dirPagination']);
 
 app.service('EnergyUsageDayWiseGraphService', function ($http) {
     /* alert("after service");*/
@@ -9,8 +9,8 @@ app.service('EnergyUsageDayWiseGraphService', function ($http) {
     this.getAllDevices = function () {
         return $http.get(baseUrl + "/Devices");
     }
-    this.getDevicebyId = function (device) {
-        return $http.post(baseUrl + "/EnergyConsumptionbyDate", device, { headers: { 'Content-Type': 'application / json, text / plain, */*' } });
+    this.getConsumptionsbyDates = function (data) {
+        return $http.post(baseUrl + "/EnergyConsumptionbyTwoDates", data, { headers: { 'Content-Type': 'application / json, text / plain, */*' } });
     }
 
 });
@@ -21,37 +21,113 @@ app.controller('OtherController', function ($rootScope, $scope, $http, EnergyUsa
 app.controller('EnergyUsageDayWiseGraphController', function EnergyUsageDayWiseGraphController($scope, $rootScope, $http, EnergyUsageDayWiseGraphService) {
 
     $scope.details = { CustomerID: "ProtechTst" };
-    getDevicesdropdown
-    loadAllDevices();
+    getDevicesdropdown();
+    //loadAllDevices();
     $scope.currentPage = 1;
     $scope.pageSize = 50;
     $scope.savebtndis = true;
     $scope.updatebtndis = true;
 
-  
+    $scope.dategraphDataSource = {};
 
-    function loadAllDevices() {
 
-        var promise = DeviceService.getAllDevices();
+    $scope.renderFusionChart = function (caption, xaxisname, yaxisname, data) {
+        console.log(data);
+        var fusioncharts = {
+            "chart": {
+                //  "type":"column2d",
+                // "type": "pie2d",
+                "caption": caption,
+                "subCaption": '',
+                "captionFontSize": "12",
+                "captionFontColor": "#00A4EF",
+                "subcaptionFontSize": "12",
+                "subcaptionFontColor": "#00A4EF",
+                "subcaptionFontBold": "0",
+                "paletteColors": "#3282b7,#f9af8c",
+                "bgColor": '#29293c',
+                "bgAlpha": "100",
+                "canvasbgColor": '#29293c',
+                "canvasbgAlpha": "100",
+                "showBorder": "0",
+                "showShadow": "0",
+                "showCanvasBorder": "0",
+                "showPlotBorder": "1",
+                "inheritPlotBorderColor": "1",
+                "plotBorderThickness": "1",
+                "usePlotGradientColor": "0",
+                "legendBorderAlpha": "50",
+                "legendShadow": "0",
+                //"showAxisLines": "5",
+                "showAlternateHGridColor": "0",
+                "divlineThickness": "0",
+                "divLineIsDashed": "0",
+                "divLineDashLen": "0",
+                "divLineGapLen": "0",
+                "xAxisName": xaxisname,
+                "yAxisName": yaxisname,
+                "xAxisNameFontColor": "#cac3c3",
+                "yAxisNameFontColor": "#cac3c3",
+                "xAxisNameFontSize": "12px",
+                "yAxisNameFontSize": "12px",
+                "labelFontColor": "#ffffff",
+                "valueFontColor": "#00ff00",
+                "yAxisLabelFontColor": "#633563",
+                "yAxisNameFontColor": "#ffffff",
+                "yAxisValueFontColor": "#ffffff",
+                "baseFont": "Arial",
+                "baseFontSize": "11",
+                "showValues": "1",
+
+            },
+            "data": data  //$scope.gethourgraphdata()
+        }
+        return fusioncharts;
+    }
+
+    $rootScope.GetEnergyUsage = function () {
+        var storecode = $('#ddlstorecode :selected').text();
+        var fromdate = $('#fromdate').val();
+        var todate = $('#todate').val();
+
+        $scope.details = { Device_Id: $scope.device_id, From_Date: fromdate, To_Date: todate, Store_Code: storecode };
+        loadAllEnergyConsumptionFromDates($scope.details);
+
+    }
+
+    function loadAllEnergyConsumptionFromDates(data) {
+        // $scope.details = { Device_Id: 8, Measurement_Date:'2023-04-16' };
+        var promise = EnergyUsageDayWiseGraphService.getConsumptionsbyDates($scope.details);
         promise.then(
 
             function (response) {
-                $scope.deviceslist = response.data;
-                $scope.alldevicesdata = $scope.deviceslist.data;
+                $scope.energyconsumptionlist = response.data;
+                $scope.allenergyconsumptiondata = $scope.energyconsumptionlist.data;
+
+                $scope.getdategraphdata();
+
+                $scope.dategraphDataSource = $scope.renderFusionChart('Daily Consumption', 'Day Wise', 'Consumption ', $scope.getdategraphdata());
+
+                //$scope.renderFusionChart('Hourly Consumption', '00-24 Hours', 'Consumption ', $scope.allenergyconsumptiondata);
             },
             function (error) {
-                $scope.alldevicesdata = null;
+                $scope.allenergyconsumptiondata = null;
 
             }
         );
     }
 
-    $rootScope.GetEnergyUsage = function () {
-        $scope.details = { Device_Id: $scope.device_id };
-        loadAllEnergyConsumption($scope.details);
-
+    //$scope.HourlyGraph = []
+    $scope.getdategraphdata = function () {
+        var cat = "[";
+        $.each($scope.allenergyconsumptiondata, function (i, e) {
+            cat += (cat == '[' ? '' : ',') + "{" + '"label":"' + String(e.summary_date) + '","value":"' + String(e.total_energy_usage) + '"' + "}";
+        });
+        cat += "]";
+        /*   console.log(cat);*/
+        return jQuery.parseJSON(cat);
+        console.log(cat);
     }
-
 
  
 
@@ -82,7 +158,7 @@ app.controller('EnergyUsageDayWiseGraphController', function EnergyUsageDayWiseG
     //function to call countryid and country for dropdown
     function getDevicesdropdown() {
 
-        var promise = EnergyUsageDayWiseGraphService.GetAllDevices();
+        var promise = EnergyUsageDayWiseGraphService.getAllDevices();
         promise.then(
 
             function (response) {

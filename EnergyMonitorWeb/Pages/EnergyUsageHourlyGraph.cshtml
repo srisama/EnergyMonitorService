@@ -20,25 +20,27 @@
     <script src="~/FusionCharts/angular.min.js"></script>
     <script src="~/FusionCharts/angular-filter.js"></script>
     <script src="~/FusionCharts/fusioncharts.js"></script>
-    <script src="~/FusionCharts/angularjs/js/angular-fusioncharts.js"></script>
-    <script src="~/FusionCharts/fusionchartsthemefusion.js"></script>
+        <script src="~/FusionCharts/angularjs/js/angular-fusioncharts.js"></script>
+        <script src="~/FusionCharts/fusionchartsthemefusion.js"></script>
     <link href="~/css/bootstrap-datepicker.css" rel="stylesheet" />
     <script src="~/js/bootstrap-datepicker.js"></script>
     <link href="~/css/font-awesome.min.css" rel="stylesheet" />
+    @*<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+    <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>*@
 
 </head>
 <body ng-app="EnergyUsageHourlyGraphModule" ng-controller="EnergyUsageHourlyGraphController">
-    <div id="main">
+    <div id="main" class="row">
 
 
         <div class="col-lg-12 col-xl-6">
-            
+
             <div class="row">
 
                 <div class="form-group row">
-                    <label for="MeasurentHour" class="col-md-4">Store</label>
-                    <div class="form-label-group col-md-8">
-                        <select placeholder="Select" class="activeslct" id="ddlstorecode" @*ng-change="finalvalidation()"*@ ng-model="EnergyConsumption.stores">
+                    <label for="MeasurentHour" class="col-md-2">Store</label>
+                    <div class="form-label-group col-md-4">
+                        <select placeholder="Select" class="activeslct1" id="ddlstorecode" @*ng-change="finalvalidation()"*@ ng-model="EnergyConsumption.stores">
                             <option value="00">MMR-0004</option>
                             <option value="01">SOU-0282</option>
                             <option value="02">SOU-0138</option>
@@ -51,29 +53,23 @@
                     </div>
                 </div>
 
-
-
                 <div class="form-group row ">
-                    <label for="Device" class="col-md-4">Device</label>
+                    <label for="Device" class="col-md-2">Device</label>
                     <div class="form-label-group col-md-8">
                         <input placeholder="Select Device" id="Device_Id" class="custom-select form-control dropdo wngraph ddlse achsite" ng-click="devicediv()" ng-model="srchDevice" ng-change="getfilterdevices()" />
                         <span id="meteridnospcl" class="row hide formspan">Error : No Special Characters</span>
                     </div>
-                    <div id="devicediv" class="srchdropdown2 hide " ng-class="{'hide':filterdevice=='0'}" ng-if="filterdevice='1'&& device_id=='0'">
+                    <div id="devicediv" class="srchdropdown_2 hide " ng-class="{'hide':filterdevice=='0'}" ng-if="filterdevice='1'&& device_id=='0'">
                         <ul class="srchdro pdown no-bullets">
                             <li class="srchdro pdown" ng-repeat="device in allDevicesdropdownData|filter:{device_name:srchDevice}" ng-click="getselecteddevice(device.device_id,device.device_name)">{{device.device_name}}</li>
                         </ul>
                     </div>
                 </div>
-            </div>
 
-            <div class="row">
                 <div class="form-group row ">
-                    <label for="MeasurentTime" class="col-md-4">Measurent Date</label>
-                    <div class="form-label-group col-md-8">
-                        <input type="text" id="measurementdate" class="form-control isval idate inutht" value="" ng-model="EnergyConsumption.Measurement_Date" name="devicetype" ng-change="finalvalidation()" maxlength="50" />
-                        <i class="fas fa-calendar-alt"></i>
-                        <i class="date-icon fa fa-calendar" aria-hidden="true"></i>
+                    <label for="MeasurentTime" class="col-md-5">Measurent Date</label>
+                    <div class="form-label-group col-md-7">
+                        <input placeholder="Select Date" type="text" id="measurementdate" class="form-control isval idate inutht" value="" ng-model="EnergyConsumption.Measurement_Date" name="devicetype" ng-change="finalvalidation()" maxlength="50" />
                         <span id="measurementdateenospcl" class="row hide formspan">Error : No Special Characters</span>
 
                     </div>
@@ -81,15 +77,12 @@
 
 
                 <div class="form-group row">
-                    <div class="form-label-group col-md-12">
-                        <input type="button" value="Show Graph" ng-click="GetEnergyUsage()" class="btnsbmt" id="savebtn" @*ng-disabled="savebtndis"*@ />
+                    <div class="form-label-group col-md-4">
+                        <input type="button" value="Show Graph" ng-click="GetEnergyUsage()" class="btnsbmt_1" id="savebtn" @*ng-disabled="savebtndis"*@ />
                     </div>
                 </div>
+
             </div>
-
-
-
-
 
 
             <div id="panel-7" class="panel">
@@ -103,47 +96,17 @@
                             <div class="graph-bg" style="height:390px;">
                                 <h6 class="px-2 pt-2 text-white font-14">Hourly</h6>
                                 <div>
-                                    <div ng-if="loading!='0'" class="loading pt-5" style="text-align:center;"><img class="load" src="../Content/images/loader2.gif"></div>
-                                    <div ng-if="loading!='1'">
-                                        <fusioncharts id="hourgraphdata" ng-if="UomGraph=='CUM'" height="350" width="100%" type="column2d" dataSource="{{ hourgraphDataSource }}">
-                                        </fusioncharts>
+                                    <fusioncharts id="hourgraphdata" height="350" width="100%" type="column2d" dataSource="{{ hourgraphDataSource }}">
+                                    </fusioncharts>
 
-                                        <fusioncharts id="hourgraphdata" ng-if="UomGraph=='SIN'" height="350" width="100%" type="msline" dataSource="{{ hourgraphDataSource }}">
-                                        </fusioncharts>
-
-                                    </div>
                                 </div>
                             </div>
                         </div>
-
-
-                        @*<div id="dategraph" class="col-md-12 p-2 pb-4">
-                            <div class="graph-bg" style="height:390px;">
-                                <h6 class="px-2 pt-2 text-white font-14">Daily</h6>
-                                <span class="px-2" style="font-size:11px; color:white;">{{fromDate}}&nbsp; To &nbsp;{{toDate}}</span>
-                                <div>
-                                    <div ng-if="loading!='0'" class="loading pt-5" style="text-align:center;"><img class="load" src="../Content/images/loader2.gif"></div>
-                                    <div ng-if="loading!='1'">
-                                        <fusioncharts id="dategraphdata" ng-if="UomGraph=='CUM'" height="350" width="100%" type="column2d" dataSource="{{ dategraphDataSource }}">
-                                        </fusioncharts>
-                                        <fusioncharts id="dategraphdata" ng-if="UomGraph=='SIN'" height="350" width="100%" type="msline" dataSource="{{ dategraphDataSource }}">
-                                        </fusioncharts>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>*@
-
-
-
-
                     </div>
                 </div>
             </div>
 
-
         </div>
-
-
     </div>
     <script src="~/js/Angular/EnergyUsageHourlyGraph.js"></script>
     <script src="~/js/dirPagination.js"></script>

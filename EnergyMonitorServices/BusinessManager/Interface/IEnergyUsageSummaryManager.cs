@@ -17,5 +17,8 @@ namespace EnergyMonitorServices.BusinessManager
         Task<object> DeleteEnergyUsageSummary(EnergyUsageSummary energyUsageSummary);
 
         Task<object> InsertEnergyUsageSummary(EnergyUsageSummary energyUsageSummary);
+
+        Task<object> EnergyUsagebyTwoDates(EnergyUsageSummary energyUsageSummary);
+
     }
 }
