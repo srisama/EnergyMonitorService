@@ -1,0 +1,216 @@
+﻿@page
+@model EnergyMonitorWeb.Pages.EnergyUsageDayWiseReportModel
+@{
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">*@
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/css/select2.min.css" rel="stylesheet" />
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/angular.js"></script>
+    <script src="~/js/angular-filter.js"></script>
+    <link href="~/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <script src="~/js/bootstrap-datepicker.js"></script>
+    <link href="~/css/font-awesome.min.css" rel="stylesheet" />
+
+
+</head>
+
+<body ng-app="EnergyUsageSummaryModule" class="mod-bg-1 mod-nav-link mod-nav-link">
+
+    <div ng-controller="EnergyUsageSummaryController" class="row">
+        <div class="col-lg-12 col-xl-6">
+
+            <div id="panel-7" class="panel">
+                <div class="card-header" style="background-color: #4679cc; color:#fff">
+                    <i class="fal fa-th-list"></i>
+                    Energy Usage Day-Wise Report
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="form-group row col-lg-4">
+                                    <label for="MeasurentHour" class="col-md-4">Store</label>
+                                    <div class="form-label-group col-md-8">
+                                        <select placeholder="Select" class="activeslct1" id="ddlstorecode" @*ng-change="finalvalidation()"*@ ng-model="EnergyConsumption.stores">
+                                            <option value="00">MMR-0004</option>
+                                            <option value="01">SOU-0282</option>
+                                            <option value="02">SOU-0138</option>
+                                            <option value="03">MMR-0007</option>
+                                            <option value="04">MMR-0275</option>
+                                            <option value="05">MMR-0252</option>
+                                            <option value="06">WR2-0288</option>
+                                            <option value="07">ROW-0288</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row col-lg-4 ">
+                                    <label for="Device" class="col-md-4">Device</label>
+                                    <div class="form-label-group col-md-8">
+                                        @*<input type="text" id="continent" class="form-control isval idate inutht" value="" ng-model="Parameters.ParameterName" name="Country" ng-change="finalvalidation()" maxlength="20" />*@
+                                        <input placeholder="Select Device" id="Device_Id" class="custom-select form-control dropdo wngraph ddlse achsite" ng-click="devicediv()" ng-model="srchDevice" ng-change="getfilterdevices()" />
+                                        <span id="meteridnospcl" class="row hide formspan">Error : No Special Characters</span>
+                                    </div>
+                                    <div id="devicediv" class="srchdropdown2 hide " ng-class="{'hide':filterdevice=='0'}" ng-if="filterdevice='1'&& device_id=='0'">
+                                        <ul class="srchdro pdown no-bullets">
+                                            <li class="srchdro pdown" ng-repeat="device in allDevicesdropdownData|filter:{device_name:srchDevice}" ng-click="getselecteddevice(device.device_id,device.device_name)">{{device.device_name}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                                <div class="row">
+
+                                    <div class="form-group row col-lg-4 ">
+                                        <label for="MeasurentTime" class="col-md-4">From Date</label>
+                                        <div class="form-label-group col-md-8">
+                                            <input placeholder="select date" type="text" id="fromdate" class="form-control isval idate inutht" value="" ng-model="EnergyConsumption.From_Date" name="devicetype" @*ng-change="finalvalidation()"*@ maxlength="50" />
+                                            @*<i class="fas fa-calendar-alt"></i>*@
+                                            <i class="date-icon fa fa-calendar" aria-hidden="true"></i>
+                                            <span id="fromdatenospcl" class="row hide formspan">Error : No Special Characters</span>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row col-lg-4 ">
+                                        <label for="MeasurentTime" class="col-md-4">To Date</label>
+                                        <div class="form-label-group col-md-8">
+                                            <input placeholder="Select Date" type="text" id="todate" class="form-control isval idate inutht" value="" ng-model="EnergyConsumption.To_Date" name="devicetype" @*ng-change="finalvalidation()"*@ maxlength="50" />
+                                            @*<i class="fas fa-calendar-alt"></i>*@
+                                            <i class="date-icon fa fa-calendar" aria-hidden="true"></i>
+                                            <span id="todatenospcl" class="row hide formspan">Error : No Special Characters</span>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row col-lg-4">
+                                        <div class="form-label-group col-md-12">
+                                            <input type="button" value="Show Consumption" ng-click="GetEnergyUsage()" class="btnsbmt" id="savebtn" @*ng-disabled="savebtndis"*@ />
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                        <div class="frame-wrap">
+                            <div class="col-lg-12 searchcss row">
+                                <div class="form-group row" style="padding-left: 15px;"><input class="srchinput" type="text" ng-model="search" placeholder="Search" /></div>
+                                <div class="form-group row" style="padding-left: 50px;">
+                                    <label for="search" style="font-weight: 200;">Page Size:</label>
+                                    <input style="width:90px !important;" type="number" value="1" min="1" max="10000" class="form-control" ng-model="pageSize">
+                                </div>
+                                <div class="col-lg-1 nopad expmrg" style="padding-left:50px;">
+                                        <button class="btn btn-primary buttonhw  hide">Export</button>
+                                        <div class="dropdown">
+                                            <button class="btn btn-primary dropdown-toggle showsummery buttonhw1" id="btnSearch1" type="button" data-toggle="dropdown">
+                                                Export
+                                            </button>
+                                            <ul class="dropdown-menu exportdrop" style="min-width:80px!important">
+                                                <li><a href="" id="pdf" ng-click="DownloadPdf()"><i class="fa fa-file-pdf-o" style=""> </i>Pdf </a></li>
+                                                <li><a href="" id="excel" ng-click="Downloadexcel()"><i class="fa fa-file-excel-o" style=""> </i>Excel</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                            </div>
+                            <table id="Displaydata" class="table table-sm m-0 table-striped">
+                                <thead class="bg-primary-500">
+                                    <tr>
+                                        <th ng-click="sort('summary_id')">
+                                            Summary Id
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='summary_id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                        </th>
+                                        <th ng-click="sort('device_name')">
+                                            Device Name
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='device_name'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                        </th>
+                                        <th ng-click="sort('summary_date')">
+                                            Summary Date
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='summary_date'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                        </th>
+                                        <th ng-click="sort('total_energy_usage')">
+                                            Total Energy Usage
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='total_energy_usage'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                        </th>
+
+                                        <th ng-click="sort('store_code')">
+                                            Store Code
+                                            <span class="glyphicon sort-icon" ng-show="sortKey=='store_code'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                        </th>
+                                        @*<th>Export</th>*@
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="s in allenergyusagesummarydata | filter : search|itemsPerPage: pageSize|orderBy:sortKey:reverse" current-page="currentPage">
+
+                                        <td>{{s.summary_id}}</td>
+
+                                        <td>{{s.device_name}}</td>
+
+                                        <td>{{s.summary_date}}</td>
+
+                                        <td>{{s.total_energy_usage}}</td>
+
+                                        <td>{{s.store_code}}</td>
+
+
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                            @*<div class="col-md-12"><dir-pagination-controls max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls></div>*@
+                        </div>
+                        <div ng-controller="OtherController" class="other-controller">
+                            <div class="text-center">
+                                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"></dir-pagination-controls>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div id="dumxls" class="hide">
+        <a id="dumlnkxls"></a>
+        <iframe id="dumiframexls"></iframe>
+    </div>
+    <script src="~/js/Angular/EnergyUsageSummary.js"></script>
+    <script src="~/js/dirPagination.js"></script>
+</body>
+
+</html>
+<script>
+    $('#summarydate').datepicker({
+        autoclose: true,
+        format: "dd-mm-yyyy"
+        //onselect: function (selected, evnt) {
+        //    alert('inside alert');
+        //    updateAb(selected);
+        //}
+    });
+</script>
+<script>
+    $('#fromdate').datepicker({
+        autoclose: true,
+        format: "yyyy-mm-dd"
+
+    });
+    $('#todate').datepicker({
+        autoclose: true,
+        format: "yyyy-mm-dd"
+    });
+</script>

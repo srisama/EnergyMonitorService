@@ -351,6 +351,19 @@
     },
 
     {
+      "DownstreamPathTemplate": "/api/EnergyUsageSummary/EnergyConsumptionbyTwoDates",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2000"
+        }
+      ],
+      "UpstreamPathTemplate": "/EnergyConsumptionbyTwoDates",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    {
       "DownstreamPathTemplate": "/api/EnergyUsageSummary/AddEnergyUsageSummary",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [

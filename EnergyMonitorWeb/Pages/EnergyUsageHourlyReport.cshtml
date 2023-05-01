@@ -1,0 +1,323 @@
+﻿@page
+@model EnergyMonitorWeb.Pages.EnergyUsageHourlyReportModel
+@{
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">*@
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/css/select2.min.css" rel="stylesheet" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/angular.js"></script>
+    <script src="~/js/angular-filter.js"></script>
+    <link href="~/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <script src="~/js/bootstrap-datepicker.js"></script>
+    <link href="~/css/font-awesome.min.css" rel="stylesheet" />
+
+</head>
+
+<body ng-app="DeviceUsageModule" class="mod-bg-1 mod-nav-link mod-nav-link">
+
+    <div ng-controller="DeviceUsageController" class="row">
+        <div class="col-lg-12 col-xl-6">
+            <div class="row">
+
+                <div class="form-group row col-lg-3">
+                    <label for="MeasurentHour" class="col-md-2">Store</label>
+                    <div class="form-label-group col-md-10">
+                        <select placeholder="Select" class="activeslct4" id="ddlstorecode1" @*ng-change="finalvalidation()"*@ ng-model="EnergyConsumption.stores">
+                            <option value="00">MMR-0004</option>
+                            <option value="01">SOU-0282</option>
+                            <option value="02">SOU-0138</option>
+                            <option value="03">MMR-0007</option>
+                            <option value="04">MMR-0275</option>
+                            <option value="05">MMR-0252</option>
+                            <option value="06">WR2-0288</option>
+                            <option value="07">ROW-0288</option>
+                        </select>
+                    </div>
+                </div>
+
+
+
+                <div class="form-group row col-lg-3">
+                    <label for="Device" class="col-md-2">Device</label>
+                    <div class="form-label-group col-md-10">
+                        @*<input type="text" id="continent" class="form-control isval idate inutht" value="" ng-model="Parameters.ParameterName" name="Country" ng-change="finalvalidation()" maxlength="20" />*@
+                        <input placeholder="Select Device" id="Device_Id" class="custom-select form-control dropdo wngraph ddlse achsite" ng-click="devicediv()" ng-model="srchDevice" ng-change="getfilterdevices()" />
+                        <span id="meteridnospcl" class="row hide formspan">Error : No Special Characters</span>
+                    </div>
+                    <div id="devicediv" class="srchdropdown2 hide " ng-class="{'hide':filterdevice=='0'}" ng-if="filterdevice='1'&& device_id=='0'">
+                        <ul class="srchdro pdown no-bullets">
+                            <li class="srchdro pdown" ng-repeat="device in allDevicesdropdownData|filter:{device_name:srchDevice}" ng-click="getselecteddevice(device.device_id,device.device_name)">{{device.device_name}}</li>
+                        </ul>
+                    </div>
+                </div>
+
+          
+
+
+                <div class="form-group row col-lg-3">
+                    <label for="MeasurentTime" class="col-md-4">Measurent Date</label>
+                    <div class="form-label-group col-md-8">
+                        <input type="text" id="measurementdate1" class="form-control isval idate inutht" value="" ng-model="EnergyConsumption.Measurement_Date" name="devicetype" ng-change="finalvalidation()" maxlength="50" />
+                        <i class="fas fa-calendar-alt"></i>
+                        <i class="date-icon fa fa-calendar" aria-hidden="true"></i>
+                        <span id="measurementdateenospcl" class="row hide formspan">Error : No Special Characters</span>
+
+                    </div>
+                </div>
+
+                    <div class="form-group row col-lg-3">
+                            <div class="form-label-group col-md-4">
+                                <input type="button" value="Show Consumption" ng-click="GetEnergyConsumption()" class="btnsbmt" id="savebtn" @*ng-disabled="savebtndis"*@ />
+                            </div>
+                    </div>
+
+            </div>
+
+
+
+
+                        <div id="panel-7" class="panel">
+
+                            <div class="panel-container show">
+                                <div class="panel-content">
+
+                                    <div class="container">
+
+                                        @*<div class="card-body crdbpad">*@
+
+                                        <div class="form-group row sucessdiv hide">
+                                            <label for="GroupName" class="col-md-2"></label>
+                                            <div class="form-label-group col-md-5">
+                                                <div id="sucessdiv" class="alert alert-success "></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row errordiv hide">
+                                            <label for="GroupName" class="col-md-2"></label>
+                                            <div class="form-label-group col-md-5">
+                                                <div id="errordiv" class="alert alert-danger "></div>
+                                            </div>
+                                        </div>
+
+                                        <form class="myForm" name="Form" enctype="multipart/form-data">
+                                            <div id="nspagecontrols" class="row hide" style="margin-bottom: 10px;">
+
+                                                <div class="col-lg-6">
+
+                                                    <div class="form-group row ">
+                                                        <label for="Device" class="col-md-4">Device</label>
+                                                        <div class="form-label-group col-md-8">
+                                                            @*<input type="text" id="continent" class="form-control isval idate inutht" value="" ng-model="Parameters.ParameterName" name="Country" ng-change="finalvalidation()" maxlength="20" />*@
+                                                            <input placeholder="Select Device" id="Device_Id" class="custom-select form-control dropdo wngraph ddlse achsite" ng-click="devicediv()" ng-model="srchDevice" ng-change="getfilterdevices()" />
+                                                            <span id="meteridnospcl" class="row hide formspan">Error : No Special Characters</span>
+                                                        </div>
+                                                        <div id="devicediv" class="srchdropdown2 hide " ng-class="{'hide':filterdevice=='0'}" ng-if="filterdevice='1'&& device_id=='0'">
+                                                            <ul class="srchdro pdown no-bullets">
+                                                                <li class="srchdro pdown" ng-repeat="device in allDevicesdropdownData|filter:{device_name:srchDevice}" ng-click="getselecteddevice(device.device_id,device.device_name)">{{device.device_name}}</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="form-group row ">
+                                                        <label for="EnergyConsumption" class="col-md-4">Energy Consumption</label>
+                                                        <div class="form-label-group col-md-8">
+                                                            <input type="text" id="energyconsumption" class="form-control isval idate inutht" value="" ng-model="EnergyConsumption.Energy_Consumption" name="powerconsumption" @*ng-change="finalvalidation()"*@ maxlength="50" />
+                                                            <span id="energyconsumptionnospcl" class="row hide formspan">Error : No Special Characters</span>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row ">
+                                                        <label for="MeasurentTime" class="col-md-4">Measurent Date</label>
+                                                        <div class="form-label-group col-md-8">
+                                                            <input placeholder="Select Date" type="text" id="measurementdate" class="form-control isval idate inutht" value="" ng-model="EnergyConsumption.Measurement_Date" name="devicetype" @*ng-change="finalvalidation()"*@ maxlength="50" />
+                                                            @*<i class="fas fa-calendar-alt"></i>*@
+                                                            <i class="date-icon fa fa-calendar" aria-hidden="true"></i>
+                                                            <span id="measurementdateenospcl" class="row hide formspan">Error : No Special Characters</span>
+
+                                                        </div>
+                                                    </div>
+                                                    <!--<div class="form-group row ">
+                                <label for="MeasurentHour" class="col-md-4">Measurent Hour</label>
+                                <div class="form-label-group col-md-8">
+                                    <input type="text" id="measurementhour" class="form-control isval idate inutht" value="" ng-model="EnergyConsumption.Measurement_Hour" name="devicetype"-->
+                                                    @*ng-change="finalvalidation()"*@
+                                                    <!--maxlength="50" />
+                                        <span id="measurementhourenospcl" class="row hide formspan">Error : No Special Characters</span>
+
+                                    </div>
+                                </div>-->
+
+                                                    <div class="form-group row">
+                                                        <label for="MeasurentHour" class="col-md-4">Measurent Hour</label>
+                                                        <div class="form-label-group col-md-8">
+                                                            <select placeholder="Select Hour" class="activeslct" id="ddlhour" @*ng-change="finalvalidation()"*@ ng-model="EnergyConsumption.Measurement_Hour">
+                                                                <option value="00">00</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                                <option value="13">13</option>
+                                                                <option value="14">14</option>
+                                                                <option value="15">15</option>
+                                                                <option value="16">16</option>
+                                                                <option value="17">17</option>
+                                                                <option value="18">18</option>
+                                                                <option value="19">19</option>
+                                                                <option value="20">20</option>
+                                                                <option value="21">21</option>
+                                                                <option value="22">22</option>
+                                                                <option value="23">23</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="form-group row">
+                                                        <label for="GroupOrder" class="col-md-4"></label>
+                                                        <div class="form-label-group col-md-8">
+                                                            <input type="button" value="Add" ng-click="insertdeviceusage()" class="btnsbmt hide" id="savebtn" @*ng-disabled="savebtndis"*@ />
+                                                            <input type="button" value="Update" ng-click="updatedeviceusage()" class="btnsbmt hide" id="updatebtn" @*ng-disabled="updatebtndis"*@ />
+                                                            <input type="button" value="Cancel" ng-click="canceldeviceusage()" class="btnsbmt hide" style="margin-top: 5px;" id="cancelbtn" @*ng-disabled="cancelbtndis"*@ />
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+                                            </div>
+                                        </form>
+                                        @*</div>*@
+
+
+
+
+                                    </div>
+
+
+                                    <div class="frame-wrap">
+                                        <div class="col-lg-12 searchcss row">
+                                            <div class="form-group row" style="padding-left: 15px;"><input class="srchinput" type="text" ng-model="search" placeholder="Search" /></div>
+                                            <div class="form-group row" style="padding-left: 50px;">
+                                                <label for="search" style="font-weight: 200;">Page Size:</label>
+                                                <input style="width:90px !important;" type="number" value="1" min="1" max="10000" class="form-control" ng-model="pageSize">
+                                            </div>
+                                            <div class="col-lg-1 nopad expmrg" style="padding-left:50px;">
+                                                <button class="btn btn-primary buttonhw  hide">Export</button>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-primary dropdown-toggle showsummery buttonhw1" id="btnSearch1" type="button" data-toggle="dropdown">
+                                                        Export
+                                                    </button>
+                                                    <ul class="dropdown-menu exportdrop" style="min-width:80px!important">
+                                                        <li><a href="" id="pdf" ng-click="DownloadPdf()"><i class="fa fa-file-pdf-o" style=""> </i>Pdf </a></li>
+                                                        <li><a href="" id="excel" ng-click="Downloadexcel()"><i class="fa fa-file-excel-o" style=""> </i>Excel</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <table id="Displaydata" class="table table-sm m-0 table-striped">
+                                            <thead class="bg-primary-500">
+                                                <tr>
+                                                    @*<th ng-click="sort('energy_id')">
+                                        Energy Id
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='energy_id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                    </th>*@
+                                                    <th ng-click="sort('device_name')">
+                                                        Device Name
+                                                        <span class="glyphicon sort-icon" ng-show="sortKey=='device_name'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                                    </th>
+                                                    <th ng-click="sort('energy_concumption')">
+                                                        Energy Consumption (Kwh)
+                                                        <span class="glyphicon sort-icon" ng-show="sortKey=='energy_concumption'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                                    </th>
+                                                    <th ng-click="sort('measurement_date')">
+                                                        Measurement Date
+                                                        <span class="glyphicon sort-icon" ng-show="sortKey=='measurement_date'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                                    </th>
+                                                    <th ng-click="sort('measurement_hour')">
+                                                        Measurement Hour
+                                                        <span class="glyphicon sort-icon" ng-show="sortKey=='measurement_hour'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                                    </th>
+                                                    <th ng-click="sort('store_code')">
+                                                        Store Code
+                                                        <span class="glyphicon sort-icon" ng-show="sortKey=='store_code'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                                    </th>
+                                                    @*<th>Action</th>*@
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr dir-paginate="s in allenergyconsumptiondata | filter : search|itemsPerPage: pageSize|orderBy:sortKey:reverse" current-page="currentPage">
+
+
+                                                    @*<tr ng-repeat="s in allenergyconsumptiondata">*@
+
+                                                    @*<td>{{s.energy_id}}</td>*@
+
+                                                    <td>{{s.device_name}}</td>
+
+                                                    <td>{{s.energy_consumption}}</td>
+
+                                                    <td>{{s.measurement_date}}</td>
+
+                                                    <td>{{s.measurement_hour}}</td>
+                                                    <td>{{s.store_code}}</td>
+
+
+                                                    @*<td>
+                                        <a href="" id="pdf" ng-click="DownloadPdf()"><i class="fa fa-file-pdf-o" style=""> </i>Pdf </a>
+                                        <a href="" id="excel" ng-click="Downloadexcel()"><i class="fa fa-file-excel-o" style=""> </i>Excel</a>
+                                    </td>*@
+
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        @*<div class="col-md-12"><dir-pagination-controls max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls></div>*@
+                                    </div>
+                                    <div ng-controller="OtherController" class="other-controller">
+                                        <div class="text-center">
+                                            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"></dir-pagination-controls>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+    </div>
+    <div id="dumxls" class="hide">
+        <a id="dumlnkxls"></a>
+        <iframe id="dumiframexls"></iframe>
+    </div>
+    <script src="~/js/Angular/DeviceUsage.js"></script>
+    <script src="~/js/dirPagination.js"></script>
+</body>
+
+</html>
+<script>
+    $('#measurementdate1').datepicker({
+        autoclose: true,
+        format: "yyyy-mm-dd"
+        //onselect: function (selected, evnt) {
+        //    alert('inside alert');
+        //    updateAb(selected);
+        //}
+    });
+</script>

@@ -1,0 +1,143 @@
+﻿@page
+@model EnergyMonitorWeb.Pages.FusionChartTestModel
+@{
+}
+
+<html>
+<head>
+    <title>My first chart using FusionCharts Suite XT</title>
+    <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+    <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+    
+</head>
+<body>
+    <div id="chart-container">FusionCharts XT will load here!</div>
+</body>
+</html>
+<script type="text/javascript">
+    FusionCharts.ready(function () {
+        var chartObj = new FusionCharts({
+            type: 'column2d',
+            renderAt: 'chart-container',
+            width: '680',
+            height: '390',
+            dataFormat: 'json',
+            dataSource: {
+                "chart": {
+                    "caption": "Monthly revenue for last year",
+                    "subCaption": "Harry's SuperMart",
+                    "xAxisName": "Month",
+                    "yAxisName": "Revenues (In USD)",
+                    "numberPrefix": "$",
+                    "theme": "fusion"
+                },
+                "data": array,
+                //"data": [{
+                //    "label": "Jan",
+                //    "value": "420000"
+                //},
+                //{
+                //    "label": "Feb",
+                //    "value": "810000"
+                //},
+                //{
+                //    "label": "Mar",
+                //    "value": "720000"
+                //},
+                //{
+                //    "label": "Apr",
+                //    "value": "550000"
+                //},
+                //{
+                //    "label": "May",
+                //    "value": "910000"
+                //},
+                //{
+                //    "label": "Jun",
+                //    "value": "510000"
+                //},
+                //{
+                //    "label": "Jul",
+                //    "value": "680000"
+                //},
+                //{
+                //    "label": "Aug",
+                //    "value": "620000"
+                //},
+                //{
+                //    "label": "Sep",
+                //    "value": "610000"
+                //},
+                //{
+                //    "label": "Oct",
+                //    "value": "490000"
+                //},
+                //{
+                //    "label": "Nov",
+                //    "value": "900000"
+                //},
+                //{
+                //    "label": "Dec",
+                //    "value": "730000"
+                //}
+                //],
+                "trendlines": [{
+                    "line": [{
+                        "startvalue": "70",
+                        "valueOnRight": "1",
+                        "displayvalue": "Monthly Target"
+                    }]
+                }]
+            }
+        });
+        chartObj.render();
+    });
+
+    var array =[ { label: '00', value: '16' },
+
+    { label: '01', value: '4' },
+    { label: '02', value: '3' },
+    
+
+    { label: '03', value: '2' },
+
+    { label: '04', value: '1' },
+  { label: '05', value: '0' },
+   { label: '06', value: '0' },
+
+    { label: '07', value: '9' },
+
+    { label: '08', value: '19' },
+
+    { label: '09', value: '17' },
+   
+
+    { label: '10', value: '18' },
+
+    { label: '11', value: '19' },
+   { label: '12', value: '22' },
+
+    { label: '13', value: '28' },
+
+    { label: '14', value: '23' },
+
+    { label: '15', value: '23' },
+    
+    { label: '16', value: '26' },
+
+    { label: '17', value: '28' },
+
+    { label: '18', value: '38' },
+
+    { label: '19', value: '24' },
+
+    { label: '20', value: '22' },
+
+    { label: '21', value: '23' },
+
+    { label: '22', value: '27' },
+
+    { label: '23', value: '18' }]
+
+
+</script>
